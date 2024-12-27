@@ -3,29 +3,37 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Loader2, ChevronDown, ChevronUp, RefreshCw } from 'lucide-react';
+import { Loader2, ChevronDown, ChevronUp, RefreshCw, Music2, ArrowRight } from 'lucide-react';
+import KaraokeDisplay from './KaraokeDisplay';
 
 const defaultPromptPlaceholder = `You're remixing this song. Keep core patterns and motifs, but transform them into a new style.
 Key remix rules:
 - Preserve rhyme schemes and rhythmic structure 
+- Keep callouts like [Chorus], [Verse], etc. in place.
 - Reference recognizable phrases/themes from original, but recontextualize them
 - Match syllable counts per line where possible
 - Keep hooks/choruses recognizable but rewritten`;
 
+const STEPS = {
+  FETCH_LYRICS: 0,
+  TRANSFORM: 1
+};
+
 export default function AudioRemixApp() {
+  const [currentStep, setCurrentStep] = useState(STEPS.FETCH_LYRICS);
   const [formData, setFormData] = useState({
-    youtubeUrl: '',
     artistName: '',
     songTitle: '',
-    transformStyle: ''
   });
 
-  const [isFormCollapsed, setIsFormCollapsed] = useState(false);
+  const [transformData, setTransformData] = useState({
+    transformStyle: '',
+    customPrompt: null,
+  });
+
   const [processing, setProcessing] = useState({
-    downloading: false,
     fetchingLyrics: false,
     transforming: false,
-    processingAudio: false
   });
 
   const [results, setResults] = useState({
@@ -37,19 +45,8 @@ export default function AudioRemixApp() {
   });
 
   const [websocket, setWebsocket] = useState(null);
-  const [transformStyle, setTransformStyle] = useState('');
-  const [customPrompt, setCustomPrompt] = useState(null);
-
-  useEffect(() => {
-    if (results.originalLyrics) {
-      setIsFormCollapsed(true);
-    }
-  }, [results.originalLyrics]);
-
-  const handlePromptChange = (e) => {
-    const value = e.target.value;
-    setCustomPrompt(value.trim() === "" || value === defaultPromptPlaceholder ? null : value);
-  };
+  const [karaokeMode, setKaraokeMode] = useState(false);
+  const [selectedLyrics, setSelectedLyrics] = useState(null);
 
   const handleInputChange = (e) => {
     setFormData(prev => ({
@@ -57,6 +54,24 @@ export default function AudioRemixApp() {
       [e.target.name]: e.target.value
     }));
   };
+
+  const handleTransformInputChange = (e) => {
+    setTransformData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleKaraokeDisplay = (lyrics) => {
+    setSelectedLyrics(lyrics);
+    setKaraokeMode(true);
+  };
+
+  const handleBackFromKaraoke = () => {
+    setKaraokeMode(false);
+    setSelectedLyrics(null);
+  };
+
   const setupWebSocketConnection = () => {
     return new Promise((resolve, reject) => {
       const sessionId = crypto.randomUUID();
@@ -77,6 +92,7 @@ export default function AudioRemixApp() {
         ws.close();
         reject(error);
       };
+
       ws.onmessage = (event) => {
         console.log("Raw WebSocket message:", event.data);
         try {
@@ -104,23 +120,19 @@ export default function AudioRemixApp() {
           ws.close();
         }
       };
+
       ws.onclose = () => {
         console.log("WebSocket connection closed");
       };
     });
   };
-
-  const handleSubmit = async (e) => {
+  const handleFetchLyrics = async (e) => {
     e.preventDefault();
-    console.log("Starting submission with:", formData);
-  
-    // Reset the spinner and error states early
-    setProcessing(prev => ({ ...prev, fetchingLyrics: true, transforming: false }));
+    setProcessing(prev => ({ ...prev, fetchingLyrics: true }));
     setResults(prev => ({ ...prev, error: null }));
-  
+
     try {
-      // Fetch lyrics
-      const lyricsResponse = await fetch('http://localhost:8000/api/fetch-lyrics', {
+      const response = await fetch('http://localhost:8000/api/fetch-lyrics', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -128,57 +140,27 @@ export default function AudioRemixApp() {
           song_title: formData.songTitle
         })
       });
-  
-      const lyricsData = await lyricsResponse.json();
-  
-      if (lyricsData.error) {
-        throw new Error(lyricsData.error);
+
+      const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error);
       }
-  
-      // Update results immediately after receiving lyrics
+
       setResults(prev => ({
         ...prev,
-        originalLyrics: lyricsData.lyrics,
+        originalLyrics: data.lyrics,
       }));
-  
-      // Start spinner for transforming step
-      setProcessing(prev => ({
-        ...prev,
-        fetchingLyrics: false,
-        transforming: true,
-      }));
-  
-      // Setup WebSocket and initiate transformation
-      const sessionId = await setupWebSocketConnection();
-  
-      const transformResponse = await fetch('http://localhost:8000/api/remix', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          youtube_url: formData.youtubeUrl,
-          artist_name: formData.artistName,
-          song_title: formData.songTitle,
-          transform_style: formData.transformStyle,
-          custom_prompt: customPrompt,
-          session_id: sessionId
-        })
-      });
-  
-      if (!transformResponse.ok) {
-        throw new Error('Failed to initiate remix request');
-      }
-  
+
+      // Move to transform step
+      setCurrentStep(STEPS.TRANSFORM);
     } catch (error) {
-      console.error('Error:', error);
       setResults(prev => ({ ...prev, error: error.message }));
-      setProcessing(prev => ({
-        downloading: false,
-        fetchingLyrics: false,
-        transforming: false,
-        processingAudio: false,
-      }));
+    } finally {
+      setProcessing(prev => ({ ...prev, fetchingLyrics: false }));
     }
   };
+
   const handleTransform = async () => {
     if (!results.originalLyrics) return;
 
@@ -192,9 +174,9 @@ export default function AudioRemixApp() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          lyrics: results.originalLyrics, // Use original lyrics
-          transform_style: transformStyle,
-          custom_prompt: customPrompt,
+          lyrics: results.originalLyrics,
+          transform_style: transformData.transformStyle,
+          custom_prompt: transformData.customPrompt,
           session_id: sessionId
         })
       });
@@ -210,37 +192,44 @@ export default function AudioRemixApp() {
     }
   };
 
+  if (karaokeMode && selectedLyrics) {
+    return <KaraokeDisplay lyrics={selectedLyrics} onBack={handleBackFromKaraoke} />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-50 flex items-center justify-center p-6">
       <div className="w-full max-w-4xl space-y-6">
-        <Card className="shadow-2xl rounded-lg border border-gray-200">
-          <CardHeader 
-            className="text-center cursor-pointer flex flex-row items-center justify-between"
-            onClick={() => results.originalLyrics && setIsFormCollapsed(!isFormCollapsed)}
-          >
-            <CardTitle className="text-3xl font-bold text-gray-800">Audio Remix Tool</CardTitle>
-            {results.originalLyrics && (
-              <Button variant="ghost" size="sm">
-                {isFormCollapsed ? <ChevronDown /> : <ChevronUp />}
-              </Button>
-            )}
-          </CardHeader>
-          
-          <CardContent>
-            {/* Initial Form */}
-            {(!results.originalLyrics || !isFormCollapsed) && (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700">YouTube URL (Optional)</label>
-                  <Input
-                    name="youtubeUrl"
-                    value={formData.youtubeUrl}
-                    onChange={handleInputChange}
-                    placeholder="https://www.youtube.com/watch?v=..."
-                    className="mt-1"
-                  />
-                </div>
+        {/* Progress Steps */}
+        <div className="flex justify-center mb-8">
+          <div className="flex items-center space-x-4">
+            <div className={`rounded-full h-10 w-10 flex items-center justify-center ${
+              currentStep === STEPS.FETCH_LYRICS ? 'bg-blue-500 text-white' : 
+              currentStep > STEPS.FETCH_LYRICS ? 'bg-green-500 text-white' : 'bg-gray-200'
+            }`}>
+              1
+            </div>
+            <div className="w-16 h-1 bg-gray-200">
+              <div className={`h-full transition-all duration-300 ${
+                currentStep > STEPS.FETCH_LYRICS ? 'bg-green-500' : 'bg-gray-200'
+              }`} />
+            </div>
+            <div className={`rounded-full h-10 w-10 flex items-center justify-center ${
+              currentStep === STEPS.TRANSFORM ? 'bg-blue-500 text-white' :
+              currentStep > STEPS.TRANSFORM ? 'bg-green-500 text-white' : 'bg-gray-200'
+            }`}>
+              2
+            </div>
+          </div>
+        </div>
 
+        {/* Step 1: Fetch Lyrics */}
+        {currentStep === STEPS.FETCH_LYRICS && (
+          <Card className="shadow-2xl">
+            <CardHeader>
+              <CardTitle className="text-2xl">Step 1: Get Song Lyrics</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleFetchLyrics} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700">Artist Name</label>
@@ -253,7 +242,6 @@ export default function AudioRemixApp() {
                       className="mt-1"
                     />
                   </div>
-
                   <div>
                     <label className="block text-sm font-semibold text-gray-700">Song Title</label>
                     <Input
@@ -267,23 +255,53 @@ export default function AudioRemixApp() {
                   </div>
                 </div>
 
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={processing.fetchingLyrics}
+                >
+                  {processing.fetchingLyrics ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Fetching Lyrics...
+                    </>
+                  ) : (
+                    <>
+                      Get Lyrics
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Step 2: Transform */}
+        {currentStep === STEPS.TRANSFORM && (
+          <>
+            <Card className="shadow-2xl">
+              <CardHeader>
+                <CardTitle className="text-2xl">Step 2: Transform Lyrics</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700">Transform Style</label>
                   <Input
                     name="transformStyle"
-                    value={formData.transformStyle}
-                    onChange={handleInputChange}
+                    value={transformData.transformStyle}
+                    onChange={handleTransformInputChange}
                     placeholder="e.g., A song about US capitalism"
                     className="mt-1"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700">Custom LLM Prompt</label>
+                  <label className="block text-sm font-semibold text-gray-700">Custom Prompt (Optional)</label>
                   <textarea
                     name="customPrompt"
-                    value={customPrompt || ""}
-                    onChange={handlePromptChange}
+                    value={transformData.customPrompt || ""}
+                    onChange={handleTransformInputChange}
                     rows="6"
                     placeholder={defaultPromptPlaceholder}
                     className="mt-1 w-full p-2 border rounded-md text-sm"
@@ -291,121 +309,91 @@ export default function AudioRemixApp() {
                 </div>
 
                 <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={Object.values(processing).some(v => v)}
-                >
-                  {Object.values(processing).some(v => v) ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      {processing.fetchingLyrics ? 'Fetching Lyrics...' : 'Processing...'}
-                    </>
-                  ) : (
-                    'Start Processing'
-                  )}
-                </Button>
-              </form>
-            )}
-
-            {/* Transform Controls */}
-            {results.originalLyrics && (
-              <div className="flex items-center gap-4 mb-6">
-                <Input
-                  value={transformStyle}
-                  onChange={(e) => setTransformStyle(e.target.value)}
-                  placeholder="Enter new transformation style..."
-                  className="flex-grow"
-                />
-                <Button 
                   onClick={handleTransform}
                   disabled={processing.transforming}
-                  className="flex items-center gap-2"
+                  className="w-full"
                 >
                   {processing.transforming ? (
                     <>
-                      <Loader2 className="animate-spin h-4 w-4" />
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Transforming...
                     </>
                   ) : (
-                    <>
-                      <RefreshCw className="h-4 w-4" />
-                      Transform
-                    </>
+                    'Transform Lyrics'
                   )}
                 </Button>
-              </div>
-            )}
-          </CardContent>
-        </Card>
 
-        {/* Results Section */}
-        {results.originalLyrics && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle>Original Lyrics</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <pre className="whitespace-pre-wrap text-sm">{results.originalLyrics}</pre>
+                <Button
+                  variant="outline"
+                  onClick={() => setCurrentStep(STEPS.FETCH_LYRICS)}
+                  className="w-full mt-2"
+                >
+                  Back to Step 1
+                </Button>
               </CardContent>
             </Card>
-            
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle>
-                  {processing.transforming ? (
-                    <div className="flex items-center gap-2">
-                      <Loader2 className="animate-spin h-4 w-4" />
-                      Transforming Lyrics...
-                    </div>
-                  ) : (
-                    'Transformed Lyrics'
-                  )}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-  {processing.transforming ? (
-    <div className="flex flex-col items-center justify-center h-48 text-gray-500">
-      <div className="text-center space-y-4">
-        <Loader2 className="animate-spin h-8 w-8 mx-auto" />
-        <p>Crafting new lyrics...</p>
-      </div>
-    </div>
-  ) : results.transformedLyrics ? (
-    <pre className="whitespace-pre-wrap text-sm">{results.transformedLyrics}</pre>
-  ) : (
-    <p className="text-gray-500 text-sm">No transformed lyrics available yet.</p>
-  )}
-</CardContent>
-            </Card>
-          </div>
-        )}
 
-        {/* Audio Files Section */}
-        {(results.vocalsPath || results.instrumentalPath) && (
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle>Audio Files</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {results.vocalsPath && (
-                <div>
-                  <h4 className="font-medium mb-2">Vocals</h4>
-                  <audio controls className="w-full">
-                    <source src={`http://localhost:8000${results.vocalsPath}`} type="audio/wav" />
-                  </audio>
-                </div>
-              )}
-              {results.instrumentalPath && (
-                <div>
-                  <h4 className="font-medium mb-2">Instrumental</h4>
-                  <audio controls className="w-full">
-                    <source src={`http://localhost:8000${results.instrumentalPath}`} type="audio/wav" />
-                  </audio>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+            {/* Results Display */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="shadow-lg">
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle>Original Lyrics</CardTitle>
+                  <Button
+                    onClick={() => handleKaraokeDisplay(results.originalLyrics)}
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center gap-2"
+                  >
+                    <Music2 className="h-4 w-4" />
+                    Display Lyrics
+                  </Button>
+                </CardHeader>
+                <CardContent>
+                  <pre className="whitespace-pre-wrap text-sm">{results.originalLyrics}</pre>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-lg">
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle>
+                    {processing.transforming ? (
+                      <div className="flex items-center gap-2">
+                        <Loader2 className="animate-spin h-4 w-4" />
+                        Transforming Lyrics...
+                      </div>
+                    ) : (
+                      'Transformed Lyrics'
+                    )}
+                  </CardTitle>
+                  {results.transformedLyrics && (
+                    <Button
+                      onClick={() => handleKaraokeDisplay(results.transformedLyrics)}
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center gap-2"
+                    >
+                      <Music2 className="h-4 w-4" />
+                      Display Lyrics
+                    </Button>
+                  )}
+                </CardHeader>
+                <CardContent>
+                  {processing.transforming ? (
+                    <div className="flex flex-col items-center justify-center h-48 text-gray-500">
+                      <div className="text-center space-y-4">
+                        <Loader2 className="animate-spin h-8 w-8 mx-auto" />
+                        <p>Crafting new lyrics...</p>
+                      </div>
+                    </div>
+                  ) : results.transformedLyrics ? (
+                    <pre className="whitespace-pre-wrap text-sm">{results.transformedLyrics}</pre>
+                  ) : (
+                    <p className="text-gray-500 text-sm">No transformed lyrics available yet.</p>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </>
         )}
 
         {/* Error Alert */}
