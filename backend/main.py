@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from pathlib import Path
+from dotenv import load_dotenv
 import shutil
 import hashlib
 import json
@@ -11,11 +12,19 @@ import asyncio
 import os
 import uuid
 from typing import Optional
+import logging 
 
 from src.download import download_song
 from src.lyrics import fetch_lyrics_from_genius
 from src.remix import transform_lyrics
 from src.audio import process_audio
+
+# Load .env from parent directory of backend/
+env_path = Path(__file__).parents[1] / '.env'
+load_dotenv(env_path)
+
+logging.info(f"GENIUS_TOKEN: {os.getenv('GENIUS_TOKEN')}")
+logging.info(f"USE_OPENAI: {os.getenv('USE_OPENAI')}")
 
 app = FastAPI()
 temp_dir = Path("temp")
