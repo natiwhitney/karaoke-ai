@@ -1,0 +1,2582 @@
+[
+    {
+        "start": 0.0,
+        "end": 0.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 0.5,
+        "end": 1.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 1.0,
+        "end": 1.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 1.5,
+        "end": 2.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 2.0,
+        "end": 2.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 2.5,
+        "end": 3.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 3.0,
+        "end": 3.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 3.5,
+        "end": 4.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 4.0,
+        "end": 4.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 4.5,
+        "end": 5.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 5.0,
+        "end": 5.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 5.5,
+        "end": 6.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 6.0,
+        "end": 6.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 6.5,
+        "end": 7.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 7.0,
+        "end": 7.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 7.5,
+        "end": 8.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 8.0,
+        "end": 8.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 8.5,
+        "end": 9.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 9.0,
+        "end": 9.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 9.5,
+        "end": 10.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 10.0,
+        "end": 10.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 10.5,
+        "end": 11.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 11.0,
+        "end": 11.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 11.5,
+        "end": 12.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 12.0,
+        "end": 12.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 12.5,
+        "end": 13.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 13.0,
+        "end": 13.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 13.5,
+        "end": 14.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 14.0,
+        "end": 14.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 14.5,
+        "end": 15.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 15.0,
+        "end": 15.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 15.5,
+        "end": 16.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 16.0,
+        "end": 16.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 16.5,
+        "end": 17.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 17.0,
+        "end": 17.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 17.5,
+        "end": 18.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 18.0,
+        "end": 18.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 18.5,
+        "end": 19.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 19.0,
+        "end": 19.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 19.5,
+        "end": 20.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 20.0,
+        "end": 20.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 20.5,
+        "end": 21.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 21.0,
+        "end": 21.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 21.5,
+        "end": 22.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 22.0,
+        "end": 22.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 22.5,
+        "end": 23.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 23.0,
+        "end": 23.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 23.5,
+        "end": 24.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 24.0,
+        "end": 24.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 24.5,
+        "end": 25.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 25.0,
+        "end": 25.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 25.5,
+        "end": 26.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 26.0,
+        "end": 26.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 26.5,
+        "end": 27.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 27.0,
+        "end": 27.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 27.5,
+        "end": 28.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 28.0,
+        "end": 28.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 28.5,
+        "end": 29.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 29.0,
+        "end": 29.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 29.5,
+        "end": 30.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 30.0,
+        "end": 30.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 30.5,
+        "end": 31.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 31.0,
+        "end": 31.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 31.5,
+        "end": 32.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 32.0,
+        "end": 32.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 32.5,
+        "end": 33.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 33.0,
+        "end": 33.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 33.5,
+        "end": 34.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 34.0,
+        "end": 34.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 34.5,
+        "end": 35.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 35.0,
+        "end": 35.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 35.5,
+        "end": 36.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 36.0,
+        "end": 36.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 36.5,
+        "end": 37.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 37.0,
+        "end": 37.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 37.5,
+        "end": 38.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 38.0,
+        "end": 38.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 38.5,
+        "end": 39.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 39.0,
+        "end": 39.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 39.5,
+        "end": 40.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 40.0,
+        "end": 40.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 40.5,
+        "end": 41.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 41.0,
+        "end": 41.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 41.5,
+        "end": 42.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 42.0,
+        "end": 42.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 42.5,
+        "end": 43.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 43.0,
+        "end": 43.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 43.5,
+        "end": 44.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 44.0,
+        "end": 44.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 44.5,
+        "end": 45.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 45.0,
+        "end": 45.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 45.5,
+        "end": 46.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 46.0,
+        "end": 46.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 46.5,
+        "end": 47.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 47.0,
+        "end": 47.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 47.5,
+        "end": 48.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 48.0,
+        "end": 48.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 48.5,
+        "end": 49.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 49.0,
+        "end": 49.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 49.5,
+        "end": 50.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 50.0,
+        "end": 50.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 50.5,
+        "end": 51.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 51.0,
+        "end": 51.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 51.5,
+        "end": 52.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 52.0,
+        "end": 52.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 52.5,
+        "end": 53.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 53.0,
+        "end": 53.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 53.5,
+        "end": 54.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 54.0,
+        "end": 54.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 54.5,
+        "end": 55.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 55.0,
+        "end": 55.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 55.5,
+        "end": 56.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 56.0,
+        "end": 56.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 56.5,
+        "end": 57.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 57.0,
+        "end": 57.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 57.5,
+        "end": 58.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 58.0,
+        "end": 58.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 58.5,
+        "end": 59.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 59.0,
+        "end": 59.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 59.5,
+        "end": 60.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 60.0,
+        "end": 60.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 60.5,
+        "end": 61.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 61.0,
+        "end": 61.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 61.5,
+        "end": 62.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 62.0,
+        "end": 62.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 62.5,
+        "end": 63.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 63.0,
+        "end": 63.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 63.5,
+        "end": 64.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 64.0,
+        "end": 64.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 64.5,
+        "end": 65.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 65.0,
+        "end": 65.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 65.5,
+        "end": 66.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 66.0,
+        "end": 66.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 66.5,
+        "end": 67.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 67.0,
+        "end": 67.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 67.5,
+        "end": 68.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 68.0,
+        "end": 68.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 68.5,
+        "end": 69.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 69.0,
+        "end": 69.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 69.5,
+        "end": 70.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 70.0,
+        "end": 70.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 70.5,
+        "end": 71.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 71.0,
+        "end": 71.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 71.5,
+        "end": 72.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 72.0,
+        "end": 72.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 72.5,
+        "end": 73.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 73.0,
+        "end": 73.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 73.5,
+        "end": 74.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 74.0,
+        "end": 74.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 74.5,
+        "end": 75.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 75.0,
+        "end": 75.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 75.5,
+        "end": 76.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 76.0,
+        "end": 76.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 76.5,
+        "end": 77.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 77.0,
+        "end": 77.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 77.5,
+        "end": 78.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 78.0,
+        "end": 78.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 78.5,
+        "end": 79.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 79.0,
+        "end": 79.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 79.5,
+        "end": 80.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 80.0,
+        "end": 80.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 80.5,
+        "end": 81.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 81.0,
+        "end": 81.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 81.5,
+        "end": 82.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 82.0,
+        "end": 82.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 82.5,
+        "end": 83.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 83.0,
+        "end": 83.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 83.5,
+        "end": 84.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 84.0,
+        "end": 84.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 84.5,
+        "end": 85.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 85.0,
+        "end": 85.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 85.5,
+        "end": 86.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 86.0,
+        "end": 86.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 86.5,
+        "end": 87.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 87.0,
+        "end": 87.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 87.5,
+        "end": 88.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 88.0,
+        "end": 88.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 88.5,
+        "end": 89.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 89.0,
+        "end": 89.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 89.5,
+        "end": 90.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 90.0,
+        "end": 90.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 90.5,
+        "end": 91.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 91.0,
+        "end": 91.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 91.5,
+        "end": 92.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 92.0,
+        "end": 92.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 92.5,
+        "end": 93.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 93.0,
+        "end": 93.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 93.5,
+        "end": 94.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 94.0,
+        "end": 94.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 94.5,
+        "end": 95.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 95.0,
+        "end": 95.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 95.5,
+        "end": 96.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 96.0,
+        "end": 96.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 96.5,
+        "end": 97.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 97.0,
+        "end": 97.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 97.5,
+        "end": 98.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 98.0,
+        "end": 98.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 98.5,
+        "end": 99.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 99.0,
+        "end": 99.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 99.5,
+        "end": 100.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 100.0,
+        "end": 100.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 100.5,
+        "end": 101.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 101.0,
+        "end": 101.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 101.5,
+        "end": 102.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 102.0,
+        "end": 102.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 102.5,
+        "end": 103.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 103.0,
+        "end": 103.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 103.5,
+        "end": 104.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 104.0,
+        "end": 104.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 104.5,
+        "end": 105.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 105.0,
+        "end": 105.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 105.5,
+        "end": 106.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 106.0,
+        "end": 106.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 106.5,
+        "end": 107.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 107.0,
+        "end": 107.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 107.5,
+        "end": 108.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 108.0,
+        "end": 108.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 108.5,
+        "end": 109.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 109.0,
+        "end": 109.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 109.5,
+        "end": 110.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 110.0,
+        "end": 110.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 110.5,
+        "end": 111.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 111.0,
+        "end": 111.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 111.5,
+        "end": 112.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 112.0,
+        "end": 112.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 112.5,
+        "end": 113.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 113.0,
+        "end": 113.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 113.5,
+        "end": 114.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 114.0,
+        "end": 114.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 114.5,
+        "end": 115.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 115.0,
+        "end": 115.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 115.5,
+        "end": 116.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 116.0,
+        "end": 116.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 116.5,
+        "end": 117.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 117.0,
+        "end": 117.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 117.5,
+        "end": 118.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 118.0,
+        "end": 118.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 118.5,
+        "end": 119.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 119.0,
+        "end": 119.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 119.5,
+        "end": 120.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 120.0,
+        "end": 120.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 120.5,
+        "end": 121.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 121.0,
+        "end": 121.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 121.5,
+        "end": 122.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 122.0,
+        "end": 122.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 122.5,
+        "end": 123.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 123.0,
+        "end": 123.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 123.5,
+        "end": 124.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 124.0,
+        "end": 124.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 124.5,
+        "end": 125.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 125.0,
+        "end": 125.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 125.5,
+        "end": 126.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 126.0,
+        "end": 126.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 126.5,
+        "end": 127.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 127.0,
+        "end": 127.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 127.5,
+        "end": 128.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 128.0,
+        "end": 128.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 128.5,
+        "end": 129.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 129.0,
+        "end": 129.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 129.5,
+        "end": 130.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 130.0,
+        "end": 130.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 130.5,
+        "end": 131.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 131.0,
+        "end": 131.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 131.5,
+        "end": 132.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 132.0,
+        "end": 132.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 132.5,
+        "end": 133.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 133.0,
+        "end": 133.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 133.5,
+        "end": 134.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 134.0,
+        "end": 134.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 134.5,
+        "end": 135.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 135.0,
+        "end": 135.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 135.5,
+        "end": 136.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 136.0,
+        "end": 136.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 136.5,
+        "end": 137.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 137.0,
+        "end": 137.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 137.5,
+        "end": 138.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 138.0,
+        "end": 138.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 138.5,
+        "end": 139.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 139.0,
+        "end": 139.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 139.5,
+        "end": 140.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 140.0,
+        "end": 140.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 140.5,
+        "end": 141.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 141.0,
+        "end": 141.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 141.5,
+        "end": 142.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 142.0,
+        "end": 142.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 142.5,
+        "end": 143.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 143.0,
+        "end": 143.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 143.5,
+        "end": 144.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 144.0,
+        "end": 144.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 144.5,
+        "end": 145.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 145.0,
+        "end": 145.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 145.5,
+        "end": 146.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 146.0,
+        "end": 146.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 146.5,
+        "end": 147.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 147.0,
+        "end": 147.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 147.5,
+        "end": 148.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 148.0,
+        "end": 148.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 148.5,
+        "end": 149.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 149.0,
+        "end": 149.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 149.5,
+        "end": 150.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 150.0,
+        "end": 150.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 150.5,
+        "end": 151.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 151.0,
+        "end": 151.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 151.5,
+        "end": 152.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 152.0,
+        "end": 152.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 152.5,
+        "end": 153.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 153.0,
+        "end": 153.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 153.5,
+        "end": 154.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 154.0,
+        "end": 154.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 154.5,
+        "end": 155.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 155.0,
+        "end": 155.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 155.5,
+        "end": 156.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 156.0,
+        "end": 156.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 156.5,
+        "end": 157.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 157.0,
+        "end": 157.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 157.5,
+        "end": 158.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 158.0,
+        "end": 158.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 158.5,
+        "end": 159.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 159.0,
+        "end": 159.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 159.5,
+        "end": 160.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 160.0,
+        "end": 160.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 160.5,
+        "end": 161.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 161.0,
+        "end": 161.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 161.5,
+        "end": 162.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 162.0,
+        "end": 162.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 162.5,
+        "end": 163.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 163.0,
+        "end": 163.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 163.5,
+        "end": 164.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 164.0,
+        "end": 164.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 164.5,
+        "end": 165.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 165.0,
+        "end": 165.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 165.5,
+        "end": 166.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 166.0,
+        "end": 166.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 166.5,
+        "end": 167.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 167.0,
+        "end": 167.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 167.5,
+        "end": 168.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 168.0,
+        "end": 168.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 168.5,
+        "end": 169.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 169.0,
+        "end": 169.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 169.5,
+        "end": 170.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 170.0,
+        "end": 170.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 170.5,
+        "end": 171.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 171.0,
+        "end": 171.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 171.5,
+        "end": 172.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 172.0,
+        "end": 172.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 172.5,
+        "end": 173.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 173.0,
+        "end": 173.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 173.5,
+        "end": 174.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 174.0,
+        "end": 174.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 174.5,
+        "end": 175.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 175.0,
+        "end": 175.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 175.5,
+        "end": 176.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 176.0,
+        "end": 176.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 176.5,
+        "end": 177.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 177.0,
+        "end": 177.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 177.5,
+        "end": 178.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 178.0,
+        "end": 178.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 178.5,
+        "end": 179.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 179.0,
+        "end": 179.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 179.5,
+        "end": 180.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 180.0,
+        "end": 180.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 180.5,
+        "end": 181.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 181.0,
+        "end": 181.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 181.5,
+        "end": 182.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 182.0,
+        "end": 182.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 182.5,
+        "end": 183.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 183.0,
+        "end": 183.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 183.5,
+        "end": 184.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 184.0,
+        "end": 184.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 184.5,
+        "end": 185.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 185.0,
+        "end": 185.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 185.5,
+        "end": 186.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 186.0,
+        "end": 186.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 186.5,
+        "end": 187.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 187.0,
+        "end": 187.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 187.5,
+        "end": 188.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 188.0,
+        "end": 188.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 188.5,
+        "end": 189.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 189.0,
+        "end": 189.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 189.5,
+        "end": 190.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 190.0,
+        "end": 190.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 190.5,
+        "end": 191.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 191.0,
+        "end": 191.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 191.5,
+        "end": 192.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 192.0,
+        "end": 192.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 192.5,
+        "end": 193.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 193.0,
+        "end": 193.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 193.5,
+        "end": 194.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 194.0,
+        "end": 194.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 194.5,
+        "end": 195.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 195.0,
+        "end": 195.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 195.5,
+        "end": 196.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 196.0,
+        "end": 196.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 196.5,
+        "end": 197.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 197.0,
+        "end": 197.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 197.5,
+        "end": 198.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 198.0,
+        "end": 198.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 198.5,
+        "end": 199.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 199.0,
+        "end": 199.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 199.5,
+        "end": 200.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 200.0,
+        "end": 200.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 200.5,
+        "end": 201.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 201.0,
+        "end": 201.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 201.5,
+        "end": 202.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 202.0,
+        "end": 202.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 202.5,
+        "end": 203.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 203.0,
+        "end": 203.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 203.5,
+        "end": 204.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 204.0,
+        "end": 204.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 204.5,
+        "end": 205.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 205.0,
+        "end": 205.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 205.5,
+        "end": 206.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 206.0,
+        "end": 206.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 206.5,
+        "end": 207.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 207.0,
+        "end": 207.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 207.5,
+        "end": 208.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 208.0,
+        "end": 208.5,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 208.5,
+        "end": 209.0,
+        "vocals": true,
+        "lyric": null
+    },
+    {
+        "start": 209.0,
+        "end": 209.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 209.5,
+        "end": 210.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 210.0,
+        "end": 210.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 210.5,
+        "end": 211.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 211.0,
+        "end": 211.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 211.5,
+        "end": 212.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 212.0,
+        "end": 212.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 212.5,
+        "end": 213.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 213.0,
+        "end": 213.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 213.5,
+        "end": 214.0,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 214.0,
+        "end": 214.5,
+        "vocals": false,
+        "lyric": null
+    },
+    {
+        "start": 214.5,
+        "end": 215.0,
+        "vocals": false,
+        "lyric": null
+    }
+]
