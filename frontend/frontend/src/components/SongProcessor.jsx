@@ -52,37 +52,52 @@ const SongProcessor = () => {
         console.log('WebSocket message received:', status);
         setWsStatus(status.message || status.stage);
         
-        if (status.stage === 'complete') {
-          console.log('Processing complete:', status.data);
-          setState(prev => ({
-            ...prev,
-            isProcessing: false,
-            audioData: {
-              vocalsPath: status.data.vocals_path || status.data.vocalsPath,
-              instrumentalPath: status.data.instrumental_path || status.data.instrumentalPath
-            },
-            error: null
-          }));
-          ws.close();
-        } else if (status.stage === 'error') {
-          setState(prev => ({
-            ...prev,
-            isProcessing: false,
-            error: status.message
-          }));
-          ws.close();
+        switch (status.stage) {
+          case 'downloading':
+            setState(prev => ({
+              ...prev,
+              isProcessing: true,
+              processingStage: 'downloading',
+              processingProgress: status.progress
+            }));
+            break;
+            
+          case 'processing':
+            setState(prev => ({
+              ...prev,
+              isProcessing: true,
+              processingStage: 'separating tracks',
+              processingProgress: status.progress
+            }));
+            break;
+            
+          case 'complete':
+            setState(prev => ({
+              ...prev,
+              isProcessing: false,
+              audioData: {
+                vocalsPath: status.data.vocals_path || status.data.vocalsPath,
+                instrumentalPath: status.data.instrumental_path || status.data.instrumentalPath
+              }
+            }));
+            ws.close();
+            break;
+            
+          case 'error':
+            setState(prev => ({ ...prev, isProcessing: false, error: status.message }));
+            ws.close();
+            break;
         }
       } catch (error) {
         console.error('WebSocket message parsing error:', error);
         setState(prev => ({
-          ...prev,
+          ...prev, 
           isProcessing: false,
           error: 'Error processing server response'
         }));
         ws.close();
       }
     };
-
     ws.onerror = (error) => {
       console.error('WebSocket error:', error);
       setState(prev => ({
@@ -366,7 +381,25 @@ const SongProcessor = () => {
       {wsStatus && state.isProcessing && (
         <Alert>
           <AlertTitle>Processing Status</AlertTitle>
-          <AlertDescription>{wsStatus}</AlertDescription>
+          <div className="space-y-2">
+            <AlertDescription className="flex items-center gap-2">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              {wsStatus}
+            </AlertDescription>
+            {state.processingProgress !== undefined && (
+              <div className="w-full">
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-blue-500 transition-all duration-300"
+                    style={{ width: `${Math.min(100, state.processingProgress)}%` }}
+                  />
+                </div>
+                <p className="text-sm text-gray-600 mt-1">
+                  {Math.round(state.processingProgress)}% Complete
+                </p>
+              </div>
+            )}
+          </div>
         </Alert>
       )}
 

@@ -2,84 +2,89 @@ import subprocess
 import os
 import sys
 from pathlib import Path
+import logging
+import asyncio
+import signal
+import shutil
 
-def run_demucs(input_file, output_dir):
-    """
-    Runs Demucs to split an audio file into stems.
 
-    Args:
-        input_file (str): Path to the input audio file.
-        output_dir (str): Directory to save the separated stems.
-    """
+async def process_audio_with_progress(input_file: str, output_dir: str, status_handler) -> tuple[str, str]:
     try:
-        print("Running Demucs to split audio into stems...")
-        command = [
-            "demucs",
-            "--two-stems=vocals",  # Split into vocals and accompaniment only
-            "-n", "htdemucs",  # default model, one pass
-            "-d", "cpu",          # Explicitly use CPU for consistent behavior
-            "-o", output_dir,
-            input_file
-        ]
-        subprocess.run(command, check=True)
-        print(f"Demucs completed. Stems saved to: {output_dir}")
-        return True
-    except subprocess.CalledProcessError as e:
-        print(f"Error while running Demucs: {e}")
-        return False
+        logging.info(f"Starting Demucs separation for {input_file}")
+        await status_handler.send_status("processing", 0, "Initializing audio separation...")
 
-def process_audio(input_file, output_dir):
-    """
-    Main function to process audio file: split into stems.
-    
-    Args:
-        input_file (str): Path to the input audio file
-        output_dir (str): Directory to save processed files
-        
-    Returns:
-        tuple: (vocals_path, instrumental_path) or (None, None) if processing fails
-    """
-    try:
-        # Create output directory if it doesn't exist
         output_dir = Path(output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Ensure input file exists
-        if not os.path.exists(input_file):
-            print(f"Input file not found: {input_file}")
-            return None, None
-        
-        # Run Demucs to split the audio into stems
-        if not run_demucs(input_file, str(output_dir)):
-            return None, None
-        
-        # Locate the output folder created by Demucs
-        song_name = Path(input_file).stem
-        demucs_stems_dir = output_dir / "htdemucs" / song_name
-        
-        # Define output paths (for two-stem separation)
-        vocals_path = demucs_stems_dir / "vocals.wav"
-        instrumental_path = demucs_stems_dir / "no_vocals.wav"
-        
-        if vocals_path.exists() and instrumental_path.exists():
-            return str(vocals_path), str(instrumental_path)
-        else:
-            print("Stem files not found after processing")
-            return None, None
-            
-    except Exception as e:
-        print(f"Error processing audio: {e}")
-        return None, None
 
-if __name__ == "__main__":
-    # Example usage
-    input_audio_file = "./input/Green Day - American Idiot (Official Audio).mp3"
-    output_directory = "output"
-    
-    vocals, instrumental = process_audio(input_audio_file, output_directory)
-    if vocals and instrumental:
-        print(f"Processing complete!")
-        print(f"Vocals file: {vocals}")
-        print(f"Instrumental file: {instrumental}")
-    else:
-        print("Processing failed!")
+        # Add environment variable for unbuffered output
+        env = os.environ.copy()
+        env["PYTHONUNBUFFERED"] = "1"
+
+        command = [
+            "demucs",
+            "--two-stems=vocals",
+            "-n", "htdemucs",
+            "-d", "cpu",
+            "-o", str(output_dir),
+            input_file
+        ]
+
+        process = await asyncio.create_subprocess_exec(
+            *command,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+            env=env
+        )
+
+        async def read_output():
+            while True:
+                line = await process.stderr.readline()
+                if not line:
+                    break
+                
+                line_text = line.decode().strip()
+                logging.info(f"Demucs output: {line_text}")
+
+                # Parse percentage from the output if it exists
+                if '|' in line_text and '%' in line_text:
+                    try:
+                        # Extract percentage based on the known Demucs format
+                        progress_part = line_text.split('|')[0]
+                        percentage = float(progress_part.strip('%'))
+                        logging.info(f"Processing progress: {percentage}%")
+                        await status_handler.update_processing(percentage)
+                    except ValueError:
+                        logging.warning(f"Could not parse progress from line: {line_text}")
+
+        # Start reading output and wait for the process to complete
+        await asyncio.gather(read_output(), process.wait())
+
+        if process.returncode == 0:
+            input_name = Path(input_file).stem
+            demucs_output = output_dir / "htdemucs" / input_name
+            vocals_path = demucs_output / "vocals.wav"
+            instrumental_path = demucs_output / "no_vocals.wav"
+
+            logging.info(f"Looking for vocals at: {vocals_path}")
+            logging.info(f"Looking for instrumental at: {instrumental_path}")
+
+            if vocals_path.exists() and instrumental_path.exists():
+                logging.info("Found both output files successfully")
+                output_vocals = output_dir / "vocals.wav"
+                output_instrumental = output_dir / "instrumental.wav"
+                shutil.copy2(str(vocals_path), str(output_vocals))
+                shutil.copy2(str(instrumental_path), str(output_instrumental))
+
+                await status_handler.send_status("processing", 100, "Audio separation complete")
+                return str(output_vocals), str(output_instrumental)
+            else:
+                logging.error("Output files not found after processing")
+                raise FileNotFoundError("Output files not found after processing")
+        else:
+            raise RuntimeError(f"Demucs process failed with return code {process.returncode}")
+
+    except Exception as e:
+        error_msg = f"Error in audio processing: {str(e)}"
+        logging.error(error_msg)
+        await status_handler.send_error(error_msg)
+        return None, None

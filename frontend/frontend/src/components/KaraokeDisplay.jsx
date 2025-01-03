@@ -1,143 +1,225 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Play, Pause } from "lucide-react";
 
-const LINE_INTERVAL = 3000; // Time to fully display one line
-const WORD_INTERVAL = 500; // Time to highlight each word
-const VISIBLE_LINES = 5; // Number of lines visible
+const VISIBLE_LINES = 7;
+const HIGHLIGHT_POSITION = 2;
+const UPDATE_INTERVAL = 50;
+const LINE_INTERVAL = 3000; // Default interval for non-timed mode
 
-export default function KaraokeDisplay({ lyrics, onBack }) {
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [visibleLines, setVisibleLines] = useState([]);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const lineTimerRef = useRef(null);
-  const wordTimerRef = useRef(null);
+export default function KaraokeDisplay({ lyrics, metadata = null, onBack }) {
+  const [currentLineIndex, setCurrentLineIndex] = useState(null);
+  const [startIndex, setStartIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const progressStartTimeRef = useRef(null);
+  const progressTimerRef = useRef(null);
+  const textRefs = useRef([]);
 
-  // Split lyrics into lines
-  const lines = lyrics.split("\n").filter((line) => line.trim() !== "");
+  // Validate lyrics structure and default to empty if invalid
+  if (!lyrics || !Array.isArray(lyrics.lyrics)) {
+    console.error("Invalid or missing lyrics data:", lyrics);
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500">No valid lyrics available to display</p>
+      </div>
+    );
+  }
 
-  useEffect(() => {
-    updateVisibleLines(0);
-  }, []);
+  const isTimedMode = lyrics.lyrics.every(
+    (line) => typeof line.startTime === "number" && typeof line.endTime === "number"
+  );
+  const lines = lyrics.lyrics;
 
-  const updateVisibleLines = (startIndex) => {
-    const newVisibleLines = [];
-    for (let i = 0; i < VISIBLE_LINES; i++) {
-      const lineIndex = startIndex + i;
-      if (lineIndex < lines.length) {
-        newVisibleLines.push(lines[lineIndex]);
-      } else {
-        newVisibleLines.push(""); // Fill empty slots at the bottom
-      }
+  const getCurrentLine = () => {
+    if (
+      currentLineIndex === null ||
+      currentLineIndex < 0 ||
+      currentLineIndex >= lines.length
+    )
+      return null;
+    return lines[currentLineIndex];
+  };
+
+  const getLineDuration = (lineIndex) => {
+    if (isTimedMode) {
+      const line = lines[lineIndex];
+      return line.endTime - line.startTime;
     }
-    setVisibleLines(newVisibleLines);
+    return LINE_INTERVAL; // Default duration for non-timed mode
+  };
+
+  const advanceLine = () => {
+    if (currentLineIndex === null || currentLineIndex >= lines.length - 1) {
+      setIsPlaying(false);
+      return;
+    }
+    const newIndex = currentLineIndex + 1;
+    if (newIndex > HIGHLIGHT_POSITION) {
+      setStartIndex(newIndex - HIGHLIGHT_POSITION);
+    }
+    setCurrentLineIndex(newIndex);
+    setProgress(0);
+    progressStartTimeRef.current = Date.now();
+  };
+
+  const goBackLine = () => {
+    if (currentLineIndex === null || currentLineIndex <= 0) return;
+
+    const newIndex = currentLineIndex - 1;
+    if (newIndex > HIGHLIGHT_POSITION) {
+      setStartIndex(newIndex - HIGHLIGHT_POSITION);
+    } else {
+      setStartIndex(0);
+    }
+    setCurrentLineIndex(newIndex);
+    setProgress(0);
+    progressStartTimeRef.current = Date.now();
   };
 
   useEffect(() => {
-    if (!isPlaying) return;
+    const handleKeydown = (event) => {
+      if (currentLineIndex === null) return;
 
-    const handleLineHighlight = () => {
-      const currentLine = lines[currentLineIndex];
-      const words = currentLine.split(" ");
-
-      // Highlight words one by one
-      let wordIndex = 0;
-      wordTimerRef.current = setInterval(() => {
-        if (wordIndex < words.length) {
-          setCurrentWordIndex(wordIndex);
-          wordIndex++;
-        } else {
-          clearInterval(wordTimerRef.current);
-        }
-      }, WORD_INTERVAL);
-
-      // Advance to the next line
-      setTimeout(() => {
-        setCurrentWordIndex(0);
-        setCurrentLineIndex((prevIndex) => {
-          const newIndex = prevIndex + 1;
-          if (newIndex >= lines.length) {
-            setIsPlaying(false); // Stop at the end
-            return prevIndex;
-          }
-
-          if (newIndex >= VISIBLE_LINES) {
-            updateVisibleLines(newIndex - VISIBLE_LINES + 1); // Scroll to keep line 3 highlighted
-          }
-          return newIndex;
-        });
-      }, LINE_INTERVAL);
+      switch (event.key) {
+        case "ArrowRight":
+        case "ArrowDown":
+          advanceLine();
+          break;
+        case "ArrowLeft":
+        case "ArrowUp":
+          goBackLine();
+          break;
+        default:
+          return;
+      }
     };
 
-    // Start line and word timers
-    lineTimerRef.current = setInterval(handleLineHighlight, LINE_INTERVAL);
-
-    return () => {
-      clearInterval(lineTimerRef.current);
-      clearInterval(wordTimerRef.current);
-    };
-  }, [isPlaying, currentLineIndex]);
-
-  const handleKeydown = (event) => {
-    if (!isPlaying) {
-      if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
-        scrollUp();
-      } else if (event.key === "ArrowDown" || event.key === "ArrowRight") {
-        scrollDown();
-      }
-    }
-  };
-
-  const scrollUp = () => {
-    setCurrentLineIndex((prev) => Math.max(prev - 1, 0));
-    updateVisibleLines(Math.max(currentLineIndex - 1, 0));
-  };
-
-  const scrollDown = () => {
-    setCurrentLineIndex((prev) => Math.min(prev + 1, lines.length - 1));
-    updateVisibleLines(Math.min(currentLineIndex + 1, lines.length - VISIBLE_LINES));
-  };
-
-  useEffect(() => {
     window.addEventListener("keydown", handleKeydown);
     return () => window.removeEventListener("keydown", handleKeydown);
-  }, [isPlaying, currentLineIndex]);
+  }, [currentLineIndex]);
+
+  useEffect(() => {
+    if (!isPlaying) {
+      clearInterval(progressTimerRef.current);
+      return;
+    }
+
+    const updateProgress = () => {
+      if (!progressStartTimeRef.current) {
+        progressStartTimeRef.current = Date.now();
+      }
+
+      const currentLine = getCurrentLine();
+      if (!currentLine) return;
+
+      const elapsed = Date.now() - progressStartTimeRef.current;
+      const duration = getLineDuration(currentLineIndex);
+
+      const newProgress = Math.min((elapsed / duration) * 100, 100);
+      setProgress(newProgress);
+
+      if (newProgress === 100) {
+        advanceLine();
+        progressStartTimeRef.current = Date.now();
+        setProgress(0);
+      }
+    };
+
+    progressTimerRef.current = setInterval(updateProgress, UPDATE_INTERVAL);
+    return () => clearInterval(progressTimerRef.current);
+  }, [isPlaying, currentLineIndex, isTimedMode]);
+
+  useEffect(() => {
+    if (!isPlaying) {
+      clearInterval(progressTimerRef.current);
+      return;
+    }
+
+    if (currentLineIndex === null) {
+      setCurrentLineIndex(0);
+      progressStartTimeRef.current = Date.now();
+    }
+  }, [isPlaying]);
 
   const togglePlayPause = () => {
+    if (!isPlaying) {
+      const elapsed = (progress / 100) * getLineDuration(currentLineIndex || 0);
+      progressStartTimeRef.current = Date.now() - elapsed;
+    }
     setIsPlaying((prev) => !prev);
   };
 
   const handleRestart = () => {
-    setCurrentLineIndex(0);
-    setCurrentWordIndex(0);
-    updateVisibleLines(0);
-    setIsPlaying(true);
+    clearInterval(progressTimerRef.current);
+    setCurrentLineIndex(null);
+    setStartIndex(0);
+    setProgress(0);
+    setIsPlaying(false);
+    progressStartTimeRef.current = null;
   };
 
-  const renderLine = (line, index) => {
-    const isHighlighted = index === currentLineIndex - (currentLineIndex >= VISIBLE_LINES - 1 ? VISIBLE_LINES - 1 : 0);
+  const getVisibleLines = () => {
+    return Array(VISIBLE_LINES)
+      .fill("")
+      .map((_, index) => {
+        const lineIndex = startIndex + index;
+        return lineIndex < lines.length ? lines[lineIndex] : null;
+      });
+  };
+
+  const renderLine = (line, visibleIndex) => {
+    if (!line) {
+      return <div key={visibleIndex} className="h-12 flex items-center px-4" />;
+    }
+
+    const shouldHighlight =
+      currentLineIndex !== null &&
+      ((currentLineIndex <= HIGHLIGHT_POSITION &&
+        visibleIndex === currentLineIndex) ||
+        (currentLineIndex > HIGHLIGHT_POSITION &&
+          visibleIndex === HIGHLIGHT_POSITION));
+
+    const startTime = isTimedMode
+      ? `${(line.startTime / 1000).toFixed(1)}s`
+      : `${(visibleIndex * 3).toFixed(1)}s`;
+    const endTime = isTimedMode
+      ? `${(line.endTime / 1000).toFixed(1)}s`
+      : `${((visibleIndex + 1) * 3).toFixed(1)}s`;
 
     return (
       <div
-        key={index}
-        className={`h-12 flex items-center transition-all duration-500 ${
-          isHighlighted ? "bg-blue-100 rounded-lg px-4" : "px-4"
+        key={visibleIndex}
+        className={`h-12 flex items-center transition-all duration-500 relative ${
+          shouldHighlight ? "bg-blue-100 rounded-lg px-4" : "px-4"
         }`}
       >
-        {line.split(" ").map((word, wordIndex) => (
-          <span
-            key={wordIndex}
-            className={`text-xl mx-1 transition-colors duration-200 ${
-              isHighlighted && wordIndex === currentWordIndex
-                ? "text-blue-600 font-bold"
-                : "text-gray-600"
-            }`}
-          >
-            {word}
-          </span>
-        ))}
+        <span
+          ref={(el) => (textRefs.current[visibleIndex] = el)}
+          className={`text-xl ${
+            shouldHighlight ? "text-blue-600 font-bold" : "text-gray-600"
+          }`}
+        >
+          {line.text}
+        </span>
+
+        <div className="ml-4 text-sm text-gray-500">
+          [{startTime} - {endTime}]
+        </div>
+
+        {shouldHighlight && (
+          <div className="absolute inset-0 pointer-events-none">
+            <div
+              className="absolute top-0 bottom-0 left-4 bg-blue-300 opacity-50"
+              style={{
+                width: `${(textRefs.current[visibleIndex]?.offsetWidth * progress) / 100}px`,
+                maxWidth: `${textRefs.current[visibleIndex]?.offsetWidth || 0}px`,
+                transition: "width 50ms linear",
+              }}
+            />
+          </div>
+        )}
       </div>
     );
   };
@@ -147,9 +229,14 @@ export default function KaraokeDisplay({ lyrics, onBack }) {
       <div className="w-full max-w-4xl">
         <Card className="shadow-2xl rounded-lg border border-gray-200">
           <CardHeader className="text-center flex flex-row items-center justify-between">
-            <CardTitle className="text-3xl font-bold text-gray-800">
-              Karaoke Display
-            </CardTitle>
+            <div>
+              <CardTitle className="text-3xl font-bold text-gray-800">
+                {metadata ? metadata.title : "Karaoke Display"}
+              </CardTitle>
+              {metadata?.artist && (
+                <div className="text-sm text-gray-600">by {metadata.artist}</div>
+              )}
+            </div>
             <div className="flex gap-2">
               <Button
                 onClick={togglePlayPause}
@@ -168,7 +255,7 @@ export default function KaraokeDisplay({ lyrics, onBack }) {
           <CardContent>
             <div className="bg-white p-6 rounded-lg border mb-4">
               <div className="space-y-4 relative">
-                {visibleLines.map((line, idx) => renderLine(line, idx))}
+                {getVisibleLines().map((line, idx) => renderLine(line, idx))}
               </div>
             </div>
 

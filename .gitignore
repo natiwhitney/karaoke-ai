@@ -4,3 +4,17 @@ temp/
 node_modules/
 __pycache__/
 *.pyc
+
+# Ignore audio files and lyrics data
+downloads/
+lyrics/
+audio/
+
+# Ignore cache
+temp/cache/
+
+# Ignore frontend build files
+frontend/frontend/node_modules/
+frontend/frontend/dist/
+frontend/frontend/.next/
+frontend/frontend/out/
