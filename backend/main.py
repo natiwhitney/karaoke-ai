@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional, List, Dict
 from pathlib import Path
 from datetime import datetime
 import asyncio
@@ -14,7 +14,17 @@ import os
 import re
 import shutil
 import uuid
+import requests
 from dotenv import load_dotenv
+
+# Add these imports to main.py
+from enum import Enum
+from src.advanced_demucs import (
+    process_audio_advanced,
+    StemConfig,
+    DemucsModel,
+    ProcessingDevice
+)
 
 # Local imports
 from src.cache import (
@@ -29,6 +39,7 @@ from src.download import download_song_with_progress
 from src.lyrics import fetch_lyrics_from_genius
 from src.remix import transform_lyrics
 from src.audio import process_audio_with_progress
+from src.analyze_lyrics import analyze_structure, analyze_rhymes
 from src.youtube_utils import search_youtube_videos, extract_video_metadata
 
 # Initialize logging
@@ -101,6 +112,35 @@ def get_audio_paths(artist: str, song: str) -> dict:
 
 # Base Models
 
+
+# Add these models to your existing models section
+
+class AdvancedStemRequest(BaseModel):
+    artist: str
+    song_title: str
+    stemConfig: str = "four_stems"  # "vocals_only", "four_stems", "six_stems"
+    model: str = "htdemucs"
+    device: str = "mps"  # "cpu", "cuda", "mps"
+
+
+
+
+class AdvancedStemResponse(BaseModel):
+    stems: Dict[str, str]  # Maps stem name to file path
+    error: Optional[str] = None
+
+# Define the expected schema for structured outputs
+class Section(BaseModel):
+    name: str
+    lyrics: List[str]
+
+class SongStructure(BaseModel):
+    intro: Section
+    verses: List[Section]
+    choruses: List[Section]
+    bridge: Section
+    outro: Section
+
 class DownloadRequest(BaseModel):
     youtube_url: str
     artist: str
@@ -136,6 +176,11 @@ class LyricsRequest(BaseModel):
 class LyricsResponse(BaseModel):
     lyrics: str
     error: Optional[str] = None
+
+
+class LyricsAnalysisRequest(BaseModel):
+   lyrics: str 
+   metadata: Optional[Dict] = None
 
 class SplitRequest(BaseModel):
     artist: str
@@ -402,7 +447,7 @@ async def get_video_metadata(request: MetadataRequest) -> VideoMetadataResponse:
 @app.post("/api/remix")
 async def create_remix(remix_request: RemixRequest):
     try:
-        # Get the song directory
+        # Create standardized directory paths using existing pattern
         artist_dir = sanitize_name(remix_request.artist_name)
         song_dir = sanitize_name(remix_request.song_title)
         song_path = DOWNLOADS_DIR / artist_dir / song_dir
@@ -412,38 +457,51 @@ async def create_remix(remix_request: RemixRequest):
         versions_dir = song_path / "versions"
         versions_dir.mkdir(exist_ok=True)
 
+        # Create a version identifier with timestamp
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        version_id = f"version_{timestamp}"
+
         # Transform the lyrics
-        transformed_lyrics = transform_lyrics(remix_request.lyrics, remix_request.transform_style)
+        transformed_lyrics = transform_lyrics(
+            original_lyrics=remix_request.lyrics,
+            style_description=remix_request.transform_style
+        )
 
         if transformed_lyrics:
-            # Create a version identifier
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            version_file = versions_dir / f"version_{timestamp}.json"
-            
             # Save the transformed version with metadata
             version_data = {
+                "id": version_id,
                 "style": remix_request.transform_style,
                 "lyrics": transformed_lyrics,
-                "timestamp": timestamp
+                "timestamp": timestamp,
+                "original_lyrics": remix_request.lyrics
             }
             
+            # Save JSON metadata
+            version_file = versions_dir / f"{version_id}.json"
             with open(version_file, 'w', encoding='utf-8') as f:
                 json.dump(version_data, f, ensure_ascii=False, indent=2)
 
-            # Update the active connection with the result
+            # Also save plain text version for easy reading
+            lyrics_file = versions_dir / f"{version_id}.txt"
+            with open(lyrics_file, 'w', encoding='utf-8') as f:
+                f.write(transformed_lyrics)
+
+            # If websocket connection exists, send the result
             if remix_request.session_id in active_connections:
                 await active_connections[remix_request.session_id].send_json({
                     "stage": "complete",
                     "data": {
                         "transformed_lyrics": transformed_lyrics,
-                        "version_id": f"version_{timestamp}"
+                        "version_id": version_id,
+                        "file_path": f"/downloads/{artist_dir}/{song_dir}/versions/{version_id}.txt"
                     }
                 })
 
-        return {"status": "processing"}
+            return {"status": "success", "version_id": version_id}
 
     except Exception as e:
-        logging.error(f"Error in remix: {str(e)}")
+        logger.error(f"Error in remix: {str(e)}")
         if remix_request.session_id in active_connections:
             await active_connections[remix_request.session_id].send_json({
                 "stage": "error",
@@ -451,8 +509,111 @@ async def create_remix(remix_request: RemixRequest):
             })
         raise HTTPException(status_code=500, detail=str(e))
 
+# Update this section in your main.py
+# Update the backend endpoint in main.py
+@app.post("/api/advanced-stems")
+async def process_advanced_stems(request: AdvancedStemRequest) -> JSONResponse:
+    try:
+        # Get standardized paths using existing pattern
+        artist_dir = sanitize_name(request.artist)
+        song_dir = sanitize_name(request.song_title)
+        song_path = DOWNLOADS_DIR / artist_dir / song_dir
+        
+        logging.info(f"Processing stems for {request.artist} - {request.song_title}")
+        logging.info(f"Looking for original file in: {song_path}")
+        
+        # Define stem file paths based on configuration
+        if request.stemConfig == "four_stems":
+            expected_stems = ["vocals", "drums", "bass", "other"]
+        else:  # vocals_only
+            expected_stems = ["vocals", "no_vocals"]
+            
+        stem_paths = {
+            stem: song_path / f"{stem}.wav"
+            for stem in expected_stems
+        }
+        
+        # Check if all stems already exist
+        all_stems_exist = all(stem_path.exists() for stem_path in stem_paths.values())
+        
+        if all_stems_exist:
+            logging.info("Found existing stems, returning cached paths")
+            # Return existing stem paths
+            return JSONResponse({
+                "stems": {
+                    stem: f"/audio/{artist_dir}/{song_dir}/{stem}.wav"
+                    for stem in expected_stems
+                }
+            })
+            
+        # Get the original MP3 path
+        mp3_path = song_path / "original.mp3"
+        if not mp3_path.exists():
+            logging.error(f"Original MP3 not found at: {mp3_path}")
+            return JSONResponse(
+                content={"error": "Original audio file not found"},
+                status_code=400
+            )
+            
+        # Process the audio in temp directory
+        session_id = str(uuid.uuid4())
+        status_handler = StatusHandler(session_id)
+        temp_dir = TEMP_DIR / session_id / "output"
+        temp_dir.mkdir(parents=True, exist_ok=True)
 
-# In main.py, update the fetch-lyrics endpoint
+        # Process audio with advanced settings
+        config_map = {
+            "vocals_only": StemConfig.VOCALS_ONLY,
+            "four_stems": StemConfig.FOUR_STEMS
+        }
+        
+        model_map = {
+            "htdemucs": DemucsModel.HTDEMUCS,
+            "mdx": DemucsModel.MDXNET
+        }
+        
+        processed_paths = await process_audio_advanced(
+            input_file=str(mp3_path),
+            output_dir=str(temp_dir),
+            config=config_map[request.stemConfig],
+            model=model_map[request.model],
+            device=ProcessingDevice.CPU,
+            status_handler=status_handler
+        )
+        
+        if not processed_paths:
+            logging.error("Failed to process audio stems")
+            return JSONResponse(
+                content={"error": "Failed to process audio"},
+                status_code=400
+            )
+            
+        # Move files to final location in library
+        for stem, temp_path in processed_paths.items():
+            target_path = song_path / f"{stem}.wav"
+            logging.info(f"Moving processed stem to: {target_path}")
+            shutil.copy2(temp_path, target_path)
+        
+        # Clean up temp directory
+        shutil.rmtree(temp_dir.parent)
+        
+        # Return paths relative to /audio mount
+        response_paths = {
+            stem: f"/audio/{artist_dir}/{song_dir}/{stem}.wav"
+            for stem in processed_paths.keys()
+        }
+        logging.info(f"Successfully processed stems: {response_paths}")
+        
+        return JSONResponse({
+            "stems": response_paths
+        })
+        
+    except Exception as e:
+        logging.error(f"Error in advanced stems processing: {str(e)}")
+        return JSONResponse(
+            content={"error": str(e)},
+            status_code=500
+        )
 
 @app.post("/api/fetch-lyrics")
 async def fetch_lyrics(request: LyricsRequest) -> Response:
@@ -722,6 +883,24 @@ async def get_library():
                 library.append(artist_item)
     
     return {"library": sorted(library, key=lambda x: x["name"])}
+
+
+@app.post("/api/analyze-lyrics")
+async def analyze_lyrics_endpoint(request: LyricsAnalysisRequest):
+    """
+    Analyze the structure of the provided lyrics.
+    """
+    try:
+        structure = analyze_structure(request.lyrics)
+        rhymes = analyze_rhymes(request.lyrics)
+        return {
+            "structure_analysis": structure.dict(),
+            "rhyme_analysis": rhymes.dict(),
+            "error": None
+        }
+    except ValueError as e:
+        logger.error(f"Analysis failed: {e}")
+        return JSONResponse(content={"error": str(e)}, status_code=500)
 
 
 @app.get("/api/test")

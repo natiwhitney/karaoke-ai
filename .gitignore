@@ -10,6 +10,12 @@ downloads/
 lyrics/
 audio/
 
+#ignore audio files
+*.mp3
+*.wav
+*.WAV
+
+
 # Ignore cache
 temp/cache/
 

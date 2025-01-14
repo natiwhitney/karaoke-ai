@@ -6,6 +6,9 @@ import logging
 import asyncio
 import signal
 import shutil
+import librosa
+import numpy as np
+from typing import Dict
 
 
 async def process_audio_with_progress(input_file: str, output_dir: str, status_handler) -> tuple[str, str]:
@@ -88,3 +91,17 @@ async def process_audio_with_progress(input_file: str, output_dir: str, status_h
         logging.error(error_msg)
         await status_handler.send_error(error_msg)
         return None, None
+
+
+def extract_audio_features(audio_path: str) -> Dict:
+    """Extract audio features from the given audio file."""
+    y, sr = librosa.load(audio_path)
+    tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
+    chroma_stft = librosa.feature.chroma_stft(y=y, sr=sr)
+    spectral_contrast = librosa.feature.spectral_contrast(y=y, sr=sr)
+    
+    return {
+        "tempo": tempo,
+        "chroma_stft": chroma_stft.tolist(),
+        "spectral_contrast": spectral_contrast.tolist()
+    }

@@ -37,7 +37,7 @@ Output only the remixed lyrics, no commentary."""
             Output only the remixed lyrics, no commentary."""
 
     print(f"Model: {'OpenAI' if use_openai else model}")
-    #print(f"Prompt:\n{prompt}")
+    print(f"Prompt:\n{prompt}")
 
     try:
         logging.info(f"Using {'OpenAI' if use_openai else 'Ollama'} API for lyrics transformation.")
@@ -53,14 +53,13 @@ Output only the remixed lyrics, no commentary."""
         return None
 
 def _transform_openai(prompt: str) -> str:
-    print(" OpenAI API request...")
+    print("OpenAI API request...")
     client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
     model = os.getenv('OPENAI_MODEL', 'gpt-4')
     messages = [
         {"role": "system", "content": "You are a creative lyricist who transforms songs."},
         {"role": "user", "content": prompt}
     ]
-    
     
     response = client.chat.completions.create(
         model=model,

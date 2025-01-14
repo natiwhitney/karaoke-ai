@@ -5,6 +5,14 @@ import { Search, Music, Split } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import LyricsModal from './LyricsModal';
 import AudioPlayer from './AudioPlayer';
+import AdvancedStemsPlayer from './AdvancedStemsPlayer';
+import LyricsPanel from './LyricsPanel';
+import LyricsTransformer from './LyricsTransformer';
+
+
+
+
+
 
 const API_BASE_URL = 'http://127.0.0.1:8000';
 
@@ -308,97 +316,17 @@ const handleSplit = async () => {
           <h1 className="text-2xl font-bold">{`${artistName} - ${songName}`}</h1>
         </div>
   
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Lyrics Panel */}
-          <Card>
-            <CardHeader className="flex flex-col space-y-4">
-              <div className="flex justify-between items-center">
-                <CardTitle>Lyrics</CardTitle>
-                {state.lyrics && (
-                  <Button variant="outline" size="sm" onClick={() => setShowLyricsModal(true)}>
-                    Expand
-                  </Button>
-                )}
-              </div>
-  
-              {/* Transform Input */}
-              {state.lyrics && (
-                <div className="flex gap-2 items-center mt-4">
-                  <input
-                    type="text"
-                    value={transformInput}
-                    onChange={(e) => setTransformInput(e.target.value)}
-                    placeholder="Enter transform style..."
-                    className="flex-1 px-3 py-2 border rounded-md"
-                  />
-                  <Button
-                    onClick={handleTransform}
-                    disabled={!transformInput.trim() || state.isTransforming}
-                  >
-                    {state.isTransforming ? (
-                      <div className="flex items-center gap-2">
-                        <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
-                        <span>Transforming...</span>
-                      </div>
-                    ) : (
-                      'Transform'
-                    )}
-                  </Button>
-                </div>
-              )}
-  
-              {/* Lyrics Tabs */}
-              {state.lyrics && (
-                <div className="flex gap-2 border-b">
-                  <button
-                    onClick={() => setActiveTab('original')}
-                    className={`px-3 py-1 text-sm font-medium rounded-t-lg ${
-                      activeTab === 'original'
-                        ? 'border-b-2 border-blue-500 text-blue-600'
-                        : 'text-gray-500 hover:text-gray-700'
-                    }`}
-                  >
-                    Original
-                  </button>
-                  {Array.isArray(lyricsVersions) && lyricsVersions.map((version, index) => (
-                    <button
-                      key={version.id || index}
-                      onClick={() => setActiveTab(version.id || index.toString())}
-                      className={`px-3 py-1 text-sm font-medium rounded-t-lg ${
-                        activeTab === (version.id || index.toString())
-                          ? 'border-b-2 border-blue-500 text-blue-600'
-                          : 'text-gray-500 hover:text-gray-700'
-                      }`}
-                    >
-                      Version {new Date(version.timestamp).toLocaleDateString()}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </CardHeader>
-  
-            <CardContent>
-              {state.loading ? (
-                <div className="text-center py-4">Loading lyrics...</div>
-              ) : state.lyrics ? (
-                <div className="space-y-2">
-                  {activeTab !== 'original' && (
-                    <div className="text-sm text-gray-500">
-                      Style: {lyricsVersions.find(v => v.id === activeTab)?.style || ''}
-                    </div>
-                  )}
-                  <pre className="whitespace-pre-wrap text-sm bg-gray-50 p-4 rounded-lg max-h-[400px] overflow-y-auto">
-                    {activeTab === 'original' 
-                      ? state.lyrics 
-                      : lyricsVersions.find(v => v.id === activeTab)?.lyrics || ''
-                    }
-                  </pre>
-                </div>
-              ) : (
-                <div className="text-center py-4">No lyrics available</div>
-              )}
-            </CardContent>
-          </Card>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Lyrics Panel */}
+              <LyricsPanel
+                lyrics={state.lyrics}
+                loading={state.loading}
+                error={state.error}
+                fromCache={state.fromCache}
+                onShowFullLyrics={() => setShowLyricsModal(true)}
+              />
+
   
           {/* Audio Panel */}
           <Card>
@@ -435,7 +363,23 @@ const handleSplit = async () => {
                       </>
                     )}
                   </Button>
-                </div>
+                  
+                   {/* In your SongPage component where you show the audio: */}
+                    {state.mp3Path && (
+                      <Card>
+                        <CardHeader>
+                          <CardTitle>Stem Controls</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <AdvancedStemsPlayer 
+                          mp3Path={state.mp3Path} 
+                          artist={artistName}  // Add this
+                          songTitle={songName} // Add this
+                          />
+                        </CardContent>
+                      </Card>
+                    )}
+              </div>
               ) : (
                 <Button onClick={handleSearchVideos} disabled={state.isSearching}>
                   <Search className="mr-2 h-4 w-4" />
@@ -445,6 +389,14 @@ const handleSplit = async () => {
             </CardContent>
           </Card>
         </div>
+                {/* Second row: Transformer panel */}
+            {state.lyrics && (
+              <LyricsTransformer
+                originalLyrics={state.lyrics}
+                artistName={artistName}
+                songTitle={songName}
+              />
+            )}
   
         {/* Video Results */}
         {state.videoResults.length > 0 && !state.mp3Path && (

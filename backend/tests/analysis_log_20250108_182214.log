@@ -1,0 +1,808 @@
+2025-01-08 18:22:14,963 - __main__ - INFO - Reading lyrics from: lyrics/input.txt
+2025-01-08 18:22:14,963 - __main__ - INFO - Starting song analysis (v0.2)...
+2025-01-08 18:22:14,963 - __main__ - INFO - Starting song structure analysis...
+2025-01-08 18:22:14,963 - __main__ - INFO - Input lyrics length: 1977 characters
+2025-01-08 18:22:14,963 - __main__ - INFO - Sending request to LLM...
+2025-01-08 18:22:14,963 - __main__ - DEBUG - Prompt preview:
+2025-01-08 18:22:14,963 - __main__ - DEBUG - You are a professional music structure analyzer. You must output ONLY valid JSON with no additional text.
+
+Analyze these lyrics with attention to:
+- Complex section changes
+- Style and tempo transitions
+- Dynamic variations
+- Musical key changes
+
+Return a JSON object exactly matching this structure (replace everything in quotes with actual values):
+
+{
+    "version": "0.2",
+    "sections": [
+        {
+            "type": {
+                "primary": "intro/verse/chorus/bridge/operatic/rock/ballad...
+2025-01-08 18:22:14,968 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-01-08 18:22:54,715 - urllib3.connectionpool - DEBUG - http://localhost:11434 "POST /api/generate HTTP/11" 200 None
+2025-01-08 18:22:54,718 - __main__ - INFO - Received response from LLM
+2025-01-08 18:22:54,718 - __main__ - INFO - Starting JSON extraction from response...
+2025-01-08 18:22:54,718 - __main__ - INFO - Response length: 5455
+2025-01-08 18:22:54,718 - __main__ - DEBUG - Response preview:
+2025-01-08 18:22:54,718 - __main__ - DEBUG - {
+    "version": "0.2",
+    "sections": [
+        {
+            "type": {
+                "primary": "intro",
+                "secondary": ""
+            },
+            "musical_characteristics": {
+                "style": "rock",
+                "tempo": {
+                    "type": "slow",
+                    "bpm_range": "60-80",
+                    "changes": "to fast-paced sections"
+                },
+                "key": "C minor",
+                "dynamics": "quiet"
+            },
+    ...
+2025-01-08 18:22:54,719 - __main__ - INFO - Extracted JSON string from position 0 to 5455
+2025-01-08 18:22:54,719 - __main__ - INFO - Starting JSON cleaning process...
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Original JSON string:
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 1: {
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 2:     "version": "0.2",
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 3:     "sections": [
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 4:         {
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 5:             "type": {
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 6:                 "primary": "intro",
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 7:                 "secondary": ""
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 8:             },
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 9:             "musical_characteristics": {
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 10:                 "style": "rock",
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 11:                 "tempo": {
+2025-01-08 18:22:54,719 - __main__ - DEBUG - Line 12:                     "type": "slow",
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 13:                     "bpm_range": "60-80",
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 14:                     "changes": "to fast-paced sections"
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 15:                 },
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 16:                 "key": "C minor",
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 17:                 "dynamics": "quiet"
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 18:             },
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 19:             "lines": [
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 20:                 {
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 21:                     "text": "Is this the real life? Is this just fantasy?",
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 22:                     "syllable_count": 0,
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 23:                     "rhyme_group": "A",
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 24:                     "delivery": "sung"
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 25:                 },
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 26:                 {
+2025-01-08 18:22:54,720 - __main__ - DEBUG - Line 27:                     "text": "Caught in a landslide, no escape from reality",
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 28:                     "syllable_count": 0,
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 29:                     "rhyme_group": "B",
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 30:                     "delivery": "sung"
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 31:                 }
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 32:             ],
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 33:             "transition": {
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 34:                 "type": "sudden",
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 35:                 "description": "from introspective to energetic"
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 36:             }
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 37:         },
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 38:         {
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 39:             "type": {
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 40:                 "primary": "verse/chorus",
+2025-01-08 18:22:54,721 - __main__ - DEBUG - Line 41:                 "secondary": ""
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 42:             },
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 43:             "musical_characteristics": {
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 44:                 "style": "rock",
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 45:                 "tempo": {
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 46:                     "type": "moderate",
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 47:                     "bpm_range": "120-140",
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 48:                     "changes": "to instrumental breaks"
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 49:                 },
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 50:                 "key": "C minor",
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 51:                 "dynamics": "moderate"
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 52:             },
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 53:             "lines": [
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 54:                 {
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 55:                     "text": "Mama, just killed a man",
+2025-01-08 18:22:54,722 - __main__ - DEBUG - Line 56:                     "syllable_count": 0,
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 57:                     "rhyme_group": "A",
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 58:                     "delivery": "sung"
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 59:                 },
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 60:                 {
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 61:                     "text": "Too late, my time has come",
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 62:                     "syllable_count": 0,
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 63:                     "rhyme_group": "B",
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 64:                     "delivery": "sung"
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 65:                 }
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 66:             ],
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 67:             "transition": {
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 68:                 "type": "gradual",
+2025-01-08 18:22:54,723 - __main__ - DEBUG - Line 69:                 "description": "from verse to chorus with slight key change"
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 70:             }
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 71:         },
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 72:         {
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 73:             "type": {
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 74:                 "primary": "verse/chorus",
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 75:                 "secondary": ""
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 76:             },
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 77:             "musical_characteristics": {
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 78:                 "style": "rock",
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 79:                 "tempo": {
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 80:                     "type": "moderate",
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 81:                     "bpm_range": "120-140",
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 82:                     "changes": "to instrumental breaks"
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 83:                 },
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 84:                 "key": "C minor",
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 85:                 "dynamics": "moderate"
+2025-01-08 18:22:54,724 - __main__ - DEBUG - Line 86:             },
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 87:             "lines": [
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 88:                 {
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 89:                     "text": "I see a little silhouetto of a man",
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 90:                     "syllable_count": 0,
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 91:                     "rhyme_group": "A",
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 92:                     "delivery": "sung"
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 93:                 }
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 94:             ],
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 95:             "transition": {
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 96:                 "type": "instrumental",
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 97:                 "description": ""
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 98:             }
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 99:         },
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 100:         {
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 101:             "type": {
+2025-01-08 18:22:54,725 - __main__ - DEBUG - Line 102:                 "primary": "bridge",
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 103:                 "secondary": ""
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 104:             },
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 105:             "musical_characteristics": {
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 106:                 "style": "rock",
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 107:                 "tempo": {
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 108:                     "type": "fast",
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 109:                     "bpm_range": "160-180",
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 110:                     "changes": "to fast-paced sections"
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 111:                 },
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 112:                 "key": "C minor",
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 113:                 "dynamics": "loud"
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 114:             },
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 115:             "lines": [
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 116:                 {
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 117:                     "text": "So you think you can stone me and spit in my eye?",
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 118:                     "syllable_count": 0,
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 119:                     "rhyme_group": "A",
+2025-01-08 18:22:54,726 - __main__ - DEBUG - Line 120:                     "delivery": "sung"
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 121:                 }
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 122:             ],
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 123:             "transition": {
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 124:                 "type": "gradual",
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 125:                 "description": "from bridge to outro with slight key change"
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 126:             }
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 127:         },
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 128:         {
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 129:             "type": {
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 130:                 "primary": "outro",
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 131:                 "secondary": ""
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 132:             },
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 133:             "musical_characteristics": {
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 134:                 "style": "rock",
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 135:                 "tempo": {
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 136:                     "type": "slow",
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 137:                     "bpm_range": "60-80",
+2025-01-08 18:22:54,727 - __main__ - DEBUG - Line 138:                     "changes": "to slower sections"
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 139:                 },
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 140:                 "key": "C minor",
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 141:                 "dynamics": "quiet"
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 142:             },
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 143:             "lines": [
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 144:                 {
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 145:                     "text": "Nothing really matters, anyone can see",
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 146:                     "syllable_count": 0,
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 147:                     "rhyme_group": "A",
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 148:                     "delivery": "sung"
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 149:                 }
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 150:             ],
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 151:             "transition": {
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 152:                 "type": "sudden",
+2025-01-08 18:22:54,728 - __main__ - DEBUG - Line 153:                 "description": "from energetic to calming"
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 154:             }
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 155:         }
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 156:     ],
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 157:     "overall_structure": {
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 158:         "pattern": "[intro] [verse1] [chorus] [verse2] [chorus] [bridge] [outro]",
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 159:         "key_changes": [
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 160:             {
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 161:                 "section": "transition from intro to verse 1",
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 162:                 "new_key": "C minor"
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 163:             },
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 164:             {
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 165:                 "section": "transition from chorus to bridge",
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 166:                 "new_key": "C major"
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 167:             }
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 168:         ],
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 169:         "style_changes": [
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 170:             {
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 171:                 "section": "transition from verse 1 to chorus",
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 172:                 "new_style": "more energetic"
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 173:             }
+2025-01-08 18:22:54,729 - __main__ - DEBUG - Line 174:         ]
+2025-01-08 18:22:54,730 - __main__ - DEBUG - Line 175:     }
+2025-01-08 18:22:54,730 - __main__ - DEBUG - Line 176: }
+2025-01-08 18:22:54,730 - __main__ - INFO - Checking JSON structure...
+2025-01-08 18:22:54,732 - __main__ - DEBUG - Cleaned JSON string:
+2025-01-08 18:22:54,732 - __main__ - DEBUG - Line 1: {
+2025-01-08 18:22:54,732 - __main__ - DEBUG - Line 2:     "version": "0.2",
+2025-01-08 18:22:54,732 - __main__ - DEBUG - Line 3:     "sections": [
+2025-01-08 18:22:54,732 - __main__ - DEBUG - Line 4:         {
+2025-01-08 18:22:54,732 - __main__ - DEBUG - Line 5:             "type": {
+2025-01-08 18:22:54,733 - __main__ - DEBUG - Line 6:                 "primary": "intro",
+2025-01-08 18:22:54,733 - __main__ - DEBUG - Line 7:                 "secondary": ""
+2025-01-08 18:22:54,733 - __main__ - DEBUG - Line 8:             },
+2025-01-08 18:22:54,733 - __main__ - DEBUG - Line 9:             "musical_characteristics": {
+2025-01-08 18:22:54,733 - __main__ - DEBUG - Line 10:                 "style": "rock",
+2025-01-08 18:22:54,733 - __main__ - DEBUG - Line 11:                 "tempo": {
+2025-01-08 18:22:54,733 - __main__ - DEBUG - Line 12:                     "type": "slow",
+2025-01-08 18:22:54,733 - __main__ - DEBUG - Line 13:                     "bpm_range": "60-80",
+2025-01-08 18:22:54,733 - __main__ - DEBUG - Line 14:                     "changes": "to fast-paced sections"
+2025-01-08 18:22:54,733 - __main__ - DEBUG - Line 15:                 },
+2025-01-08 18:22:54,733 - __main__ - DEBUG - Line 16:                 "key": "C minor",
+2025-01-08 18:22:54,734 - __main__ - DEBUG - Line 17:                 "dynamics": "quiet"
+2025-01-08 18:22:54,734 - __main__ - DEBUG - Line 18:             },
+2025-01-08 18:22:54,734 - __main__ - DEBUG - Line 19:             "lines": [
+2025-01-08 18:22:54,734 - __main__ - DEBUG - Line 20:                 {
+2025-01-08 18:22:54,734 - __main__ - DEBUG - Line 21:                     "text": "Is this the real life? Is this just fantasy?",
+2025-01-08 18:22:54,734 - __main__ - DEBUG - Line 22:                     "syllable_count": 0,
+2025-01-08 18:22:54,734 - __main__ - DEBUG - Line 23:                     "rhyme_group": "A",
+2025-01-08 18:22:54,734 - __main__ - DEBUG - Line 24:                     "delivery": "sung"
+2025-01-08 18:22:54,734 - __main__ - DEBUG - Line 25:                 },
+2025-01-08 18:22:54,734 - __main__ - DEBUG - Line 26:                 {
+2025-01-08 18:22:54,734 - __main__ - DEBUG - Line 27:                     "text": "Caught in a landslide, no escape from reality",
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 28:                     "syllable_count": 0,
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 29:                     "rhyme_group": "B",
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 30:                     "delivery": "sung"
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 31:                 }
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 32:             ],
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 33:             "transition": {
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 34:                 "type": "sudden",
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 35:                 "description": "from introspective to energetic"
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 36:             }
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 37:         },
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 38:         {
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 39:             "type": {
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 40:                 "primary": "verse/chorus",
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 41:                 "secondary": ""
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 42:             },
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 43:             "musical_characteristics": {
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 44:                 "style": "rock",
+2025-01-08 18:22:54,735 - __main__ - DEBUG - Line 45:                 "tempo": {
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 46:                     "type": "moderate",
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 47:                     "bpm_range": "120-140",
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 48:                     "changes": "to instrumental breaks"
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 49:                 },
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 50:                 "key": "C minor",
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 51:                 "dynamics": "moderate"
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 52:             },
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 53:             "lines": [
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 54:                 {
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 55:                     "text": "Mama, just killed a man",
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 56:                     "syllable_count": 0,
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 57:                     "rhyme_group": "A",
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 58:                     "delivery": "sung"
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 59:                 },
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 60:                 {
+2025-01-08 18:22:54,736 - __main__ - DEBUG - Line 61:                     "text": "Too late, my time has come",
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 62:                     "syllable_count": 0,
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 63:                     "rhyme_group": "B",
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 64:                     "delivery": "sung"
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 65:                 }
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 66:             ],
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 67:             "transition": {
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 68:                 "type": "gradual",
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 69:                 "description": "from verse to chorus with slight key change"
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 70:             }
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 71:         },
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 72:         {
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 73:             "type": {
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 74:                 "primary": "verse/chorus",
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 75:                 "secondary": ""
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 76:             },
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 77:             "musical_characteristics": {
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 78:                 "style": "rock",
+2025-01-08 18:22:54,737 - __main__ - DEBUG - Line 79:                 "tempo": {
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 80:                     "type": "moderate",
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 81:                     "bpm_range": "120-140",
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 82:                     "changes": "to instrumental breaks"
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 83:                 },
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 84:                 "key": "C minor",
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 85:                 "dynamics": "moderate"
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 86:             },
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 87:             "lines": [
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 88:                 {
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 89:                     "text": "I see a little silhouetto of a man",
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 90:                     "syllable_count": 0,
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 91:                     "rhyme_group": "A",
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 92:                     "delivery": "sung"
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 93:                 }
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 94:             ],
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 95:             "transition": {
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 96:                 "type": "instrumental",
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 97:                 "description": ""
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 98:             }
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 99:         },
+2025-01-08 18:22:54,738 - __main__ - DEBUG - Line 100:         {
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 101:             "type": {
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 102:                 "primary": "bridge",
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 103:                 "secondary": ""
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 104:             },
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 105:             "musical_characteristics": {
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 106:                 "style": "rock",
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 107:                 "tempo": {
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 108:                     "type": "fast",
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 109:                     "bpm_range": "160-180",
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 110:                     "changes": "to fast-paced sections"
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 111:                 },
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 112:                 "key": "C minor",
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 113:                 "dynamics": "loud"
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 114:             },
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 115:             "lines": [
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 116:                 {
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 117:                     "text": "So you think you can stone me and spit in my eye?",
+2025-01-08 18:22:54,739 - __main__ - DEBUG - Line 118:                     "syllable_count": 0,
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 119:                     "rhyme_group": "A",
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 120:                     "delivery": "sung"
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 121:                 }
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 122:             ],
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 123:             "transition": {
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 124:                 "type": "gradual",
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 125:                 "description": "from bridge to outro with slight key change"
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 126:             }
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 127:         },
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 128:         {
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 129:             "type": {
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 130:                 "primary": "outro",
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 131:                 "secondary": ""
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 132:             },
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 133:             "musical_characteristics": {
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 134:                 "style": "rock",
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 135:                 "tempo": {
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 136:                     "type": "slow",
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 137:                     "bpm_range": "60-80",
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 138:                     "changes": "to slower sections"
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 139:                 },
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 140:                 "key": "C minor",
+2025-01-08 18:22:54,740 - __main__ - DEBUG - Line 141:                 "dynamics": "quiet"
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 142:             },
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 143:             "lines": [
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 144:                 {
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 145:                     "text": "Nothing really matters, anyone can see",
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 146:                     "syllable_count": 0,
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 147:                     "rhyme_group": "A",
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 148:                     "delivery": "sung"
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 149:                 }
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 150:             ],
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 151:             "transition": {
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 152:                 "type": "sudden",
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 153:                 "description": "from energetic to calming"
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 154:             }
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 155:         }
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 156:     ],
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 157:     "overall_structure": {
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 158:         "pattern": "[intro] [verse1] [chorus] [verse2] [chorus] [bridge] [outro]",
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 159:         "key_changes": [
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 160:             {
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 161:                 "section": "transition from intro to verse 1",
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 162:                 "new_key": "C minor"
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 163:             },
+2025-01-08 18:22:54,741 - __main__ - DEBUG - Line 164:             {
+2025-01-08 18:22:54,742 - __main__ - DEBUG - Line 165:                 "section": "transition from chorus to bridge",
+2025-01-08 18:22:54,742 - __main__ - DEBUG - Line 166:                 "new_key": "C major"
+2025-01-08 18:22:54,742 - __main__ - DEBUG - Line 167:             }
+2025-01-08 18:22:54,742 - __main__ - DEBUG - Line 168:         ],
+2025-01-08 18:22:54,742 - __main__ - DEBUG - Line 169:         "style_changes": [
+2025-01-08 18:22:54,742 - __main__ - DEBUG - Line 170:             {
+2025-01-08 18:22:54,742 - __main__ - DEBUG - Line 171:                 "section": "transition from verse 1 to chorus",
+2025-01-08 18:22:54,742 - __main__ - DEBUG - Line 172:                 "new_style": "more energetic"
+2025-01-08 18:22:54,742 - __main__ - DEBUG - Line 173:             }
+2025-01-08 18:22:54,742 - __main__ - DEBUG - Line 174:         ]
+2025-01-08 18:22:54,743 - __main__ - DEBUG - Line 175:     }
+2025-01-08 18:22:54,743 - __main__ - DEBUG - Line 176: }
+2025-01-08 18:22:54,743 - __main__ - INFO - Parsing cleaned JSON...
+2025-01-08 18:22:54,743 - __main__ - INFO - Validating analysis structure...
+2025-01-08 18:22:54,743 - __main__ - INFO - Initial analysis complete, starting refinement...
+2025-01-08 18:22:54,743 - __main__ - INFO - Sending refinement request...
+2025-01-08 18:22:54,745 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:11434
+2025-01-08 18:23:40,785 - urllib3.connectionpool - DEBUG - http://localhost:11434 "POST /api/generate HTTP/11" 200 None
+2025-01-08 18:23:40,787 - __main__ - INFO - Starting JSON extraction from response...
+2025-01-08 18:23:40,787 - __main__ - INFO - Response length: 4989
+2025-01-08 18:23:40,787 - __main__ - DEBUG - Response preview:
+2025-01-08 18:23:40,787 - __main__ - DEBUG - The provided song structure analysis appears to be mostly accurate and complete, but there are a few minor errors that need to be addressed:
+
+1. Section transitions: The transition from verse 2 to chorus is not explicitly identified in the current analysis.
+2. Style changes: There is no style change marked between the bridge and outro sections.
+3. Musical characteristics: The tempo range for section 3 (verse/chorus) seems inconsistent, as it changes to "fast-paced" without a clear indication of ...
+2025-01-08 18:23:40,787 - __main__ - INFO - Extracted JSON string from position 676 to 4989
+2025-01-08 18:23:40,787 - __main__ - INFO - Starting JSON cleaning process...
+2025-01-08 18:23:40,787 - __main__ - DEBUG - Original JSON string:
+2025-01-08 18:23:40,787 - __main__ - DEBUG - Line 1: {
+2025-01-08 18:23:40,787 - __main__ - DEBUG - Line 2:   "version": "0.2",
+2025-01-08 18:23:40,787 - __main__ - DEBUG - Line 3:   "sections": [
+2025-01-08 18:23:40,787 - __main__ - DEBUG - Line 4:     {
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 5:       "type": {
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 6:         "primary": "intro",
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 7:         "secondary": ""
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 8:       },
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 9:       "musical_characteristics": {
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 10:         "style": "rock",
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 11:         "tempo": {
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 12:           "type": "slow",
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 13:           "bpm_range": "60-80",
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 14:           "changes": "to fast-paced sections"
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 15:         },
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 16:         "key": "C minor",
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 17:         "dynamics": "quiet"
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 18:       },
+2025-01-08 18:23:40,788 - __main__ - DEBUG - Line 19:       "lines": [
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 20:         {
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 21:           "text": "Is this the real life? Is this just fantasy?",
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 22:           "syllable_count": 0,
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 23:           "rhyme_group": "A",
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 24:           "delivery": "sung"
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 25:         },
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 26:         {
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 27:           "text": "Caught in a landslide, no escape from reality",
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 28:           "syllable_count": 0,
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 29:           "rhyme_group": "B",
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 30:           "delivery": "sung"
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 31:         }
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 32:       ],
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 33:       "transition": {
+2025-01-08 18:23:40,789 - __main__ - DEBUG - Line 34:         "type": "sudden",
+2025-01-08 18:23:40,790 - __main__ - DEBUG - Line 35:         "description": "from introspective to energetic"
+2025-01-08 18:23:40,790 - __main__ - DEBUG - Line 36:       }
+2025-01-08 18:23:40,790 - __main__ - DEBUG - Line 37:     },
+2025-01-08 18:23:40,790 - __main__ - DEBUG - Line 38:     {
+2025-01-08 18:23:40,790 - __main__ - DEBUG - Line 39:       "type": {
+2025-01-08 18:23:40,790 - __main__ - DEBUG - Line 40:         "primary": "verse/chorus",
+2025-01-08 18:23:40,790 - __main__ - DEBUG - Line 41:         "secondary": ""
+2025-01-08 18:23:40,790 - __main__ - DEBUG - Line 42:       },
+2025-01-08 18:23:40,790 - __main__ - DEBUG - Line 43:       "musical_characteristics": {
+2025-01-08 18:23:40,790 - __main__ - DEBUG - Line 44:         "style": "rock",
+2025-01-08 18:23:40,790 - __main__ - DEBUG - Line 45:         "tempo": {
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 46:           "type": "moderate",
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 47:           "bpm_range": "120-140",
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 48:           "changes": "to instrumental breaks"
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 49:         },
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 50:         "key": "C minor",
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 51:         "dynamics": "moderate"
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 52:       },
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 53:       "lines": [
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 54:         {
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 55:           "text": "Mama, just killed a man",
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 56:           "syllable_count": 0,
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 57:           "rhyme_group": "A",
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 58:           "delivery": "sung"
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 59:         },
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 60:         {
+2025-01-08 18:23:40,791 - __main__ - DEBUG - Line 61:           "text": "Too late, my time has come",
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 62:           "syllable_count": 0,
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 63:           "rhyme_group": "B",
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 64:           "delivery": "sung"
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 65:         }
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 66:       ],
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 67:       "transition": {
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 68:         "type": "gradual",
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 69:         "description": "from verse to chorus with slight key change"
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 70:       }
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 71:     },
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 72:     {
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 73:       "type": {
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 74:         "primary": "verse/chorus",
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 75:         "secondary": ""
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 76:       },
+2025-01-08 18:23:40,792 - __main__ - DEBUG - Line 77:       "musical_characteristics": {
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 78:         "style": "rock",
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 79:         "tempo": {
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 80:           "type": "moderate",
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 81:           "bpm_range": "120-140",
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 82:           "changes": "to instrumental breaks"
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 83:         },
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 84:         "key": "C minor",
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 85:         "dynamics": "moderate"
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 86:       },
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 87:       "lines": [
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 88:         {
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 89:           "text": "I see a little silhouetto of a man",
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 90:           "syllable_count": 0,
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 91:           "rhyme_group": "A",
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 92:           "delivery": "sung"
+2025-01-08 18:23:40,793 - __main__ - DEBUG - Line 93:         }
+2025-01-08 18:23:40,794 - __main__ - DEBUG - Line 94:       ],
+2025-01-08 18:23:40,794 - __main__ - DEBUG - Line 95:       "transition": {
+2025-01-08 18:23:40,794 - __main__ - DEBUG - Line 96:         "type": "instrumental",
+2025-01-08 18:23:40,794 - __main__ - DEBUG - Line 97:         "description": ""
+2025-01-08 18:23:40,794 - __main__ - DEBUG - Line 98:       }
+2025-01-08 18:23:40,794 - __main__ - DEBUG - Line 99:     },
+2025-01-08 18:23:40,794 - __main__ - DEBUG - Line 100:     {
+2025-01-08 18:23:40,794 - __main__ - DEBUG - Line 101:       "type": {
+2025-01-08 18:23:40,794 - __main__ - DEBUG - Line 102:         "primary": "bridge",
+2025-01-08 18:23:40,794 - __main__ - DEBUG - Line 103:         "secondary": ""
+2025-01-08 18:23:40,794 - __main__ - DEBUG - Line 104:       },
+2025-01-08 18:23:40,795 - __main__ - DEBUG - Line 105:       "musical_characteristics": {
+2025-01-08 18:23:40,795 - __main__ - DEBUG - Line 106:         "style": "rock",
+2025-01-08 18:23:40,795 - __main__ - DEBUG - Line 107:         "tempo": {
+2025-01-08 18:23:40,795 - __main__ - DEBUG - Line 108:           "type": "fast",
+2025-01-08 18:23:40,795 - __main__ - DEBUG - Line 109:           "bpm_range": "160-180",
+2025-01-08 18:23:40,795 - __main__ - DEBUG - Line 110:           "changes": "to fast-paced sections"
+2025-01-08 18:23:40,795 - __main__ - DEBUG - Line 111:         },
+2025-01-08 18:23:40,795 - __main__ - DEBUG - Line 112:         "key": "C minor",
+2025-01-08 18:23:40,796 - __main__ - DEBUG - Line 113:         "dynamics": "loud"
+2025-01-08 18:23:40,796 - __main__ - DEBUG - Line 114:       },
+2025-01-08 18:23:40,796 - __main__ - DEBUG - Line 115:       "lines": [
+2025-01-08 18:23:40,796 - __main__ - DEBUG - Line 116:         {
+2025-01-08 18:23:40,796 - __main__ - DEBUG - Line 117:           "text": "So you think you can stone me and spit in my eye?",
+2025-01-08 18:23:40,796 - __main__ - DEBUG - Line 118:           "syllable_count": 0,
+2025-01-08 18:23:40,796 - __main__ - DEBUG - Line 119:           "rhyme_group": "A",
+2025-01-08 18:23:40,796 - __main__ - DEBUG - Line 120:           "delivery": "sung"
+2025-01-08 18:23:40,796 - __main__ - DEBUG - Line 121:         }
+2025-01-08 18:23:40,796 - __main__ - DEBUG - Line 122:       ],
+2025-01-08 18:23:40,796 - __main__ - DEBUG - Line 123:       "transition": {
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 124:         "type": "sudden",
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 125:         "description": "from chorus to bridge with dramatic key change"
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 126:       }
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 127:     },
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 128:     {
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 129:       "type": {
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 130:         "primary": "outro",
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 131:         "secondary": ""
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 132:       },
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 133:       "musical_characteristics": {
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 134:         "style": "rock",
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 135:         "tempo": {
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 136:           "type": "slow",
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 137:           "bpm_range": "60-80",
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 138:           "changes": "to slower sections"
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 139:         },
+2025-01-08 18:23:40,797 - __main__ - DEBUG - Line 140:         "key": "C minor",
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 141:         "dynamics": "quiet"
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 142:       },
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 143:       "lines": [
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 144:         {
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 145:           "text": "",
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 146:           "syllable_count": 0,
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 147:           "rhyme_group": "",
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 148:           "delivery": ""
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 149:         }
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 150:       ],
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 151:       "transition": {
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 152:         "type": "sudden",
+2025-01-08 18:23:40,798 - __main__ - DEBUG - Line 153:         "description": "from bridge to outro with gradual fade-out"
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 154:       }
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 155:     }
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 156:   ],
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 157:   "overall_structure": {
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 158:     "pattern": [
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 159:       {"section": "intro"},
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 160:       {"section": "verse/chorus", "style_change": true},
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 161:       {"section": "outro"}
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 162:     ],
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 163:     "key_changes": [
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 164:       {
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 165:         "section": "transition from intro to verse 1",
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 166:         "new_key": "C minor"
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 167:       },
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 168:       {
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 169:         "section": "transition from chorus to bridge",
+2025-01-08 18:23:40,799 - __main__ - DEBUG - Line 170:         "new_key": "A major" // corrected key change
+2025-01-08 18:23:40,800 - __main__ - DEBUG - Line 171:       }
+2025-01-08 18:23:40,800 - __main__ - DEBUG - Line 172:     ],
+2025-01-08 18:23:40,800 - __main__ - DEBUG - Line 173:     "style_changes": [
+2025-01-08 18:23:40,800 - __main__ - DEBUG - Line 174:       {
+2025-01-08 18:23:40,800 - __main__ - DEBUG - Line 175:         "section": "transition from verse 1 to chorus",
+2025-01-08 18:23:40,800 - __main__ - DEBUG - Line 176:         "new_style": "more energetic"
+2025-01-08 18:23:40,800 - __main__ - DEBUG - Line 177:       },
+2025-01-08 18:23:40,800 - __main__ - DEBUG - Line 178:       {
+2025-01-08 18:23:40,800 - __main__ - DEBUG - Line 179:         "section": "bridge to outro",
+2025-01-08 18:23:40,800 - __main__ - DEBUG - Line 180:         "new_style": "more introspective"
+2025-01-08 18:23:40,800 - __main__ - DEBUG - Line 181:       }
+2025-01-08 18:23:40,801 - __main__ - DEBUG - Line 182:     ]
+2025-01-08 18:23:40,801 - __main__ - DEBUG - Line 183:   }
+2025-01-08 18:23:40,801 - __main__ - DEBUG - Line 184: }
+2025-01-08 18:23:40,801 - __main__ - INFO - Checking JSON structure...
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Cleaned JSON string:
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 1: {
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 2:   "version": "0.2",
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 3:   "sections": [
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 4:     {
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 5:       "type": {
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 6:         "primary": "intro",
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 7:         "secondary": ""
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 8:       },
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 9:       "musical_characteristics": {
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 10:         "style": "rock",
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 11:         "tempo": {
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 12:           "type": "slow",
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 13:           "bpm_range": "60-80",
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 14:           "changes": "to fast-paced sections"
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 15:         },
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 16:         "key": "C minor",
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 17:         "dynamics": "quiet"
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 18:       },
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 19:       "lines": [
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 20:         {
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 21:           "text": "Is this the real life? Is this just fantasy?",
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 22:           "syllable_count": 0,
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 23:           "rhyme_group": "A",
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 24:           "delivery": "sung"
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 25:         },
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 26:         {
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 27:           "text": "Caught in a landslide, no escape from reality",
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 28:           "syllable_count": 0,
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 29:           "rhyme_group": "B",
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 30:           "delivery": "sung"
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 31:         }
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 32:       ],
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 33:       "transition": {
+2025-01-08 18:23:40,802 - __main__ - DEBUG - Line 34:         "type": "sudden",
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 35:         "description": "from introspective to energetic"
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 36:       }
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 37:     },
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 38:     {
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 39:       "type": {
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 40:         "primary": "verse/chorus",
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 41:         "secondary": ""
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 42:       },
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 43:       "musical_characteristics": {
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 44:         "style": "rock",
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 45:         "tempo": {
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 46:           "type": "moderate",
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 47:           "bpm_range": "120-140",
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 48:           "changes": "to instrumental breaks"
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 49:         },
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 50:         "key": "C minor",
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 51:         "dynamics": "moderate"
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 52:       },
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 53:       "lines": [
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 54:         {
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 55:           "text": "Mama, just killed a man",
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 56:           "syllable_count": 0,
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 57:           "rhyme_group": "A",
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 58:           "delivery": "sung"
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 59:         },
+2025-01-08 18:23:40,803 - __main__ - DEBUG - Line 60:         {
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 61:           "text": "Too late, my time has come",
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 62:           "syllable_count": 0,
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 63:           "rhyme_group": "B",
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 64:           "delivery": "sung"
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 65:         }
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 66:       ],
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 67:       "transition": {
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 68:         "type": "gradual",
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 69:         "description": "from verse to chorus with slight key change"
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 70:       }
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 71:     },
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 72:     {
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 73:       "type": {
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 74:         "primary": "verse/chorus",
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 75:         "secondary": ""
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 76:       },
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 77:       "musical_characteristics": {
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 78:         "style": "rock",
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 79:         "tempo": {
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 80:           "type": "moderate",
+2025-01-08 18:23:40,804 - __main__ - DEBUG - Line 81:           "bpm_range": "120-140",
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 82:           "changes": "to instrumental breaks"
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 83:         },
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 84:         "key": "C minor",
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 85:         "dynamics": "moderate"
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 86:       },
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 87:       "lines": [
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 88:         {
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 89:           "text": "I see a little silhouetto of a man",
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 90:           "syllable_count": 0,
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 91:           "rhyme_group": "A",
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 92:           "delivery": "sung"
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 93:         }
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 94:       ],
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 95:       "transition": {
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 96:         "type": "instrumental",
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 97:         "description": ""
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 98:       }
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 99:     },
+2025-01-08 18:23:40,805 - __main__ - DEBUG - Line 100:     {
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 101:       "type": {
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 102:         "primary": "bridge",
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 103:         "secondary": ""
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 104:       },
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 105:       "musical_characteristics": {
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 106:         "style": "rock",
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 107:         "tempo": {
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 108:           "type": "fast",
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 109:           "bpm_range": "160-180",
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 110:           "changes": "to fast-paced sections"
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 111:         },
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 112:         "key": "C minor",
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 113:         "dynamics": "loud"
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 114:       },
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 115:       "lines": [
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 116:         {
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 117:           "text": "So you think you can stone me and spit in my eye?",
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 118:           "syllable_count": 0,
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 119:           "rhyme_group": "A",
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 120:           "delivery": "sung"
+2025-01-08 18:23:40,806 - __main__ - DEBUG - Line 121:         }
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 122:       ],
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 123:       "transition": {
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 124:         "type": "sudden",
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 125:         "description": "from chorus to bridge with dramatic key change"
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 126:       }
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 127:     },
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 128:     {
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 129:       "type": {
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 130:         "primary": "outro",
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 131:         "secondary": ""
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 132:       },
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 133:       "musical_characteristics": {
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 134:         "style": "rock",
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 135:         "tempo": {
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 136:           "type": "slow",
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 137:           "bpm_range": "60-80",
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 138:           "changes": "to slower sections"
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 139:         },
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 140:         "key": "C minor",
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 141:         "dynamics": "quiet"
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 142:       },
+2025-01-08 18:23:40,807 - __main__ - DEBUG - Line 143:       "lines": [
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 144:         {
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 145:           "text": "",
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 146:           "syllable_count": 0,
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 147:           "rhyme_group": "",
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 148:           "delivery": ""
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 149:         }
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 150:       ],
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 151:       "transition": {
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 152:         "type": "sudden",
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 153:         "description": "from bridge to outro with gradual fade-out"
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 154:       }
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 155:     }
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 156:   ],
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 157:   "overall_structure": {
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 158:     "pattern": [
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 159:       {"section": "intro"},
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 160:       {"section": "verse/chorus", "style_change": true},
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 161:       {"section": "outro"}
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 162:     ],
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 163:     "key_changes": [
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 164:       {
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 165:         "section": "transition from intro to verse 1",
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 166:         "new_key": "C minor"
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 167:       },
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 168:       {
+2025-01-08 18:23:40,808 - __main__ - DEBUG - Line 169:         "section": "transition from chorus to bridge",
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 170:         "new_key": "A major" // corrected key change
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 171:       }
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 172:     ],
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 173:     "style_changes": [
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 174:       {
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 175:         "section": "transition from verse 1 to chorus",
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 176:         "new_style": "more energetic"
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 177:       },
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 178:       {
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 179:         "section": "bridge to outro",
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 180:         "new_style": "more introspective"
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 181:       }
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 182:     ]
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 183:   }
+2025-01-08 18:23:40,809 - __main__ - DEBUG - Line 184: }
+2025-01-08 18:23:40,809 - __main__ - ERROR - Error during JSON cleaning: Expecting ',' delimiter: line 170 column 30 (char 4033)
+2025-01-08 18:23:40,809 - __main__ - ERROR - Problem area context:
+2025-01-08 18:23:40,809 - __main__ - ERROR - ...     },
+      {
+        "section": "transition from chorus to bridge",
+        "new_key": "A major" // corrected key change
+      }
+    ],
+    "style_changes": [
+      {
+        "section": "transition...
+2025-01-08 18:23:40,809 - __main__ - ERROR - JSON decode error: Expecting ',' delimiter: line 170 column 30 (char 4033)
+2025-01-08 18:23:40,809 - __main__ - ERROR - Error at line 170, column 30
+2025-01-08 18:23:40,809 - __main__ - ERROR - Error message: Expecting ',' delimiter
+2025-01-08 18:23:40,810 - __main__ - ERROR - Refinement failed: Expecting ',' delimiter: line 170 column 30 (char 4033)
+2025-01-08 18:23:40,810 - __main__ - ERROR - Analysis failed: Expecting ',' delimiter: line 170 column 30 (char 4033)
+2025-01-08 18:23:40,810 - __main__ - ERROR - Error: Expecting ',' delimiter: line 170 column 30 (char 4033)
