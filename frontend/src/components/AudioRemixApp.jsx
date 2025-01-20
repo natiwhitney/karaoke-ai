@@ -4,9 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scrollArea";
 import { Loader2 } from 'lucide-react';
-import KaraokeDisplay from './KaraokeDisplay';
 import LyricsInput from './LyricsInput';
-import TransformSection from './TransformSection';
 
 const LyricsAnalysis = ({ lyrics, isAnalyzing, onAnalyze, onBack, onContinue, rhymeAnalysis, structureAnalysis }) => (
   <div className="space-y-6">
@@ -104,8 +102,6 @@ export default function AudioRemixApp() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const [websocket, setWebsocket] = useState(null);
-  const [karaokeMode, setKaraokeMode] = useState(false);
-  const [selectedLyrics, setSelectedLyrics] = useState(null);
 
   const handleInputChange = (e) => {
     setFormData(prev => ({
@@ -287,10 +283,6 @@ export default function AudioRemixApp() {
     }
   };
 
-  if (karaokeMode && selectedLyrics) {
-    return <KaraokeDisplay lyrics={selectedLyrics} onBack={() => setKaraokeMode(false)} />;
-  }
-
   return (
     <div className="space-y-6">
       {currentStep === 0 && (
@@ -327,10 +319,6 @@ export default function AudioRemixApp() {
           onTransformInputChange={handleTransformInputChange}
           onTransform={handleTransform}
           onBack={() => setCurrentStep(1)}
-          onKaraokeDisplay={(lyrics) => {
-            setSelectedLyrics(lyrics);
-            setKaraokeMode(true);
-          }}
         />
       )}
 
