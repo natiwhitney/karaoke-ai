@@ -9,12 +9,13 @@ import AdvancedStemsPlayer from './AdvancedStemsPlayer';
 import LyricsPanel from './LyricsPanel';
 import LyricsTransformer from './LyricsTransformer';
 
-
-
-
-
-
-const API_BASE_URL = 'http://127.0.0.1:8000';
+import { 
+  API_BASE_URL, 
+  WS_BASE_URL, 
+  buildApiUrl, 
+  buildAudioUrl, 
+  buildWsUrl 
+} from '../config/api';
 
 
 const SongPage = ({ artistName, songName, onBack }) => {
@@ -42,13 +43,16 @@ const SongPage = ({ artistName, songName, onBack }) => {
   const [activeTab, setActiveTab] = useState('original');
   const [showLyricsModal, setShowLyricsModal] = useState(false);
 
+  // Update the fetch URLs:
   const fetchLyrics = async () => {
-    setState(prev => ({ ...prev, loading: true, error: null }));
     try {
-      const response = await fetch(`${API_BASE_URL}/api/fetch-lyrics`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ artist: artistName, song_title: songName }),
+        const response = await fetch(buildApiUrl('fetch-lyrics'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                artist: artistName, 
+                song_title: songName 
+            }),
       });
 
       if (!response.ok) {
@@ -79,7 +83,7 @@ const SongPage = ({ artistName, songName, onBack }) => {
   const handleSearchVideos = async () => {
     setState(prev => ({ ...prev, isSearching: true, error: null }));
     try {
-      const response = await fetch(`${API_BASE_URL}/api/search-videos`, {
+      const response = await fetch(buildApiUrl('search-videos'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -103,39 +107,39 @@ const SongPage = ({ artistName, songName, onBack }) => {
   };
   const fetchSongInfo = async () => {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/library`);
-        const data = await response.json();
-        const artist = data.library.find(a => a.name === artistName);
-        const song = artist?.children?.find(s => s.name === songName);
-        
-        console.log("Found song files:", song?.files); // Add this log
-        
-        if (song?.files) {
-            setState(prev => ({
-                ...prev,
-                mp3Path: song.files.mp3Path,
-                splitResults: {
-                    vocalsPath: song.files.vocalsPath,
-                    instrumentalPath: song.files.instrumentalPath
-                },
-                isCheckingFiles: false
-            }));
-            
-            // Add this log to verify the final path
-            console.log("Full audio URL:", `${API_BASE_URL}${song.files.mp3Path}`);
-        } else {
-            setState(prev => ({ ...prev, isCheckingFiles: false }));
-        }
-    } catch (error) {
-        console.error('Error checking files:', error);
+      const response = await fetch(buildApiUrl('library'));
+      const data = await response.json();
+      const artist = data.library.find(a => a.name === artistName);
+      const song = artist?.children?.find(s => s.name === songName);
+      
+      if (song?.files) {
+        const { mp3Path, vocalsPath, instrumentalPath } = song.files;
+        setState(prev => ({
+          ...prev,
+          mp3Path: mp3Path || null,
+          splitResults: {
+            vocalsPath: vocalsPath || null,
+            instrumentalPath: instrumentalPath || null
+          },
+          isCheckingFiles: false
+        }));
+      } else {
         setState(prev => ({ ...prev, isCheckingFiles: false }));
+      }
+    } catch (error) {
+      console.error('Error checking files:', error);
+      setState(prev => ({ 
+        ...prev, 
+        isCheckingFiles: false,
+        error: 'Error checking files' 
+      }));
     }
-};
+  };
 
- const fetchLyricsVersions = async () => {
+  const fetchLyricsVersions = async () => {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/lyrics/versions/${encodeURIComponent(artistName)}/${encodeURIComponent(songName)}`
+      const response = await fetch(
+          buildApiUrl(`lyrics/versions/${encodeURIComponent(artistName)}/${encodeURIComponent(songName)}`)
     );
     const data = await response.json();
     
@@ -176,7 +180,8 @@ const handleTransform = async () => {
   
   try {
     const session_id = crypto.randomUUID();
-    const ws = new WebSocket(`ws://localhost:8000/ws/${session_id}`);
+    const ws = new WebSocket(buildWsUrl(session_id));
+
     
     ws.onmessage = async (event) => {
       const status = JSON.parse(event.data);
@@ -196,7 +201,7 @@ const handleTransform = async () => {
       ws.onopen = () => resolve();
     });
 
-    const response = await fetch(`${API_BASE_URL}/api/remix`, {
+    const response = await fetch(`${API_BASE_URL}/remix`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -230,7 +235,7 @@ const handleTransform = async () => {
   }));
 
   try {
-      const response = await fetch(`${API_BASE_URL}/api/download-audio`, {
+      const response = await fetch(buildApiUrl('download-audio'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
@@ -270,7 +275,7 @@ const handleSplit = async () => {
   }));
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/split-audio`, {
+    const response = await fetch(buildApiUrl('split-audio'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -338,13 +343,16 @@ const handleSplit = async () => {
                 <div className="text-center py-4">Checking for existing files...</div>
               ) : state.splitResults.vocalsPath && state.splitResults.instrumentalPath ? (
                 <AudioPlayer
-                  vocalsPath={state.splitResults.vocalsPath}
-                  instrumentalPath={state.splitResults.instrumentalPath}
+                  vocalsPath={state.splitResults.vocalsPath && buildAudioUrl(state.splitResults.vocalsPath)}
+                  instrumentalPath={state.splitResults.instrumentalPath && buildAudioUrl(state.splitResults.instrumentalPath)}
                 />
               ) : state.mp3Path ? (
                 <div className="space-y-4">
                   <audio controls className="w-full">
-                    <source src={`${API_BASE_URL}${state.mp3Path}`} type="audio/mpeg" />
+                    <source 
+                      src={state.mp3Path && buildAudioUrl(state.mp3Path)} 
+                      type="audio/mpeg" 
+                    />
                   </audio>
                   <Button
                     onClick={handleSplit}
@@ -372,7 +380,7 @@ const handleSplit = async () => {
                         </CardHeader>
                         <CardContent>
                           <AdvancedStemsPlayer 
-                          mp3Path={state.mp3Path} 
+                          mp3Path={buildAudioUrl(state.mp3Path)} 
                           artist={artistName}  // Add this
                           songTitle={songName} // Add this
                           />

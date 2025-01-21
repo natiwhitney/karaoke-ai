@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import AudioPlayer from './AudioPlayer';
 import LyricsModal from './LyricsModal';
+import { API_BASE_URL, WS_BASE_URL } from '../config/api';
 
 const KaraokeCreator = () => {
   // Form and feature states
@@ -40,7 +41,7 @@ const KaraokeCreator = () => {
   const fetchLyrics = async () => {
     setLyrics(prev => ({ ...prev, loading: true, error: null }));
     try {
-      const response = await fetch('http://localhost:8000/api/fetch-lyrics', {
+      const response = await fetch(`${API_BASE_URL}/fetch-lyrics`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -74,7 +75,7 @@ const KaraokeCreator = () => {
       const session_id = crypto.randomUUID();
       
       // Set up WebSocket connection
-      const ws = new WebSocket(`ws://localhost:8000/ws/${session_id}`);
+      const ws = new WebSocket(`${WS_BASE_URL}/${session_id}`);
       
       ws.onmessage = (event) => {
         const status = JSON.parse(event.data);
@@ -97,7 +98,7 @@ const KaraokeCreator = () => {
       });
   
       // Send remix request
-      const response = await fetch('http://localhost:8000/api/remix', {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/remix`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -125,7 +126,7 @@ const KaraokeCreator = () => {
   const processAudio = async () => {
     setAudio(prev => ({ ...prev, loading: true, error: null }));
     try {
-      const response = await fetch('http://localhost:8000/api/split-audio', {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/split-audio`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

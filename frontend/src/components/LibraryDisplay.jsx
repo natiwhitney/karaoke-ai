@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { buildApiUrl } from '../config/api';
+
 
 const LibraryDisplay = ({ onArtistSelect }) => {
     const [libraryData, setLibraryData] = useState([]);
   
     useEffect(() => {
-      fetch('http://127.0.0.1:8000/api/library')
+      fetch(buildApiUrl('/library'))
         .then((response) => response.json())
         .then((data) => setLibraryData(data.library || []))
         .catch((error) => console.error('Error fetching library data:', error));

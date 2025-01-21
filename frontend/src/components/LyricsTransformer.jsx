@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Wand2, Clock, Download } from "lucide-react";
+import { API_BASE_URL, WS_BASE_URL } from '../config/api';
+
 
 const LyricsTransformer = ({ originalLyrics, artistName, songTitle }) => {
   const [transformStyle, setTransformStyle] = useState('');
@@ -20,7 +22,7 @@ const LyricsTransformer = ({ originalLyrics, artistName, songTitle }) => {
   const fetchVersions = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/lyrics/versions/${encodeURIComponent(artistName)}/${encodeURIComponent(songTitle)}`
+        `${API_BASE_URL}/lyrics/versions/${encodeURIComponent(artistName)}/${encodeURIComponent(songTitle)}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -38,7 +40,7 @@ const LyricsTransformer = ({ originalLyrics, artistName, songTitle }) => {
     setError(null);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/remix', {
+      const response = await fetch(`${API_BASE_URL}/remix`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

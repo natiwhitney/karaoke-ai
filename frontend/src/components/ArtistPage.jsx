@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { buildApiUrl } from '../config/api';
+
 
 const ArtistPage = ({ artistName, onSongSelect, onBack }) => {
     const [songs, setSongs] = useState([]);
   
     useEffect(() => {
-      fetch('http://127.0.0.1:8000/api/library')
+      fetch(buildApiUrl('/library'))
         .then((response) => response.json())
         .then((data) => {
           const artist = data.library.find((artist) => artist.name === artistName);

@@ -84,7 +84,7 @@ app.add_middleware(
 
 # Mount static files
 # Mount static files - mount downloads directory directly at /audio
-app.mount("/audio", StaticFiles(directory=str(DOWNLOADS_DIR)), name="downloads")
+app.mount("/audio", StaticFiles(directory="downloads"), name="audio")
 
 # WebSocket connections storage
 active_connections: dict[str, WebSocket] = {}

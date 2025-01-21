@@ -5,9 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Search, Music } from "lucide-react";
 import AudioPlayer from './AudioPlayer';
+import { API_BASE_URL } from '@/config/api';
 
-// API configuration
-const API_BASE_URL = 'http://localhost:8000';
 
 const SongProcessor = () => {
   // Form and state management

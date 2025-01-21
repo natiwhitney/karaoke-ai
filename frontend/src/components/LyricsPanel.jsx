@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Loader2, FileText, ListMusic } from "lucide-react";
+import { API_BASE_URL, WS_BASE_URL } from '../config/api';
+
 
 const LyricsPanel = ({ lyrics, loading, error, fromCache, onShowFullLyrics }) => {
   const [analysis, setAnalysis] = useState(null);
@@ -11,7 +13,7 @@ const LyricsPanel = ({ lyrics, loading, error, fromCache, onShowFullLyrics }) =>
   const handleAnalyze = async () => {
     setAnalyzing(true);
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/analyze-lyrics', {
+      const response = await fetch(`${API_BASE_URL}/api/analyze-lyrics`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ lyrics })

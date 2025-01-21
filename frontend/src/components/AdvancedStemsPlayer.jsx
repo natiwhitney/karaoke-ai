@@ -5,8 +5,7 @@ import { Slider } from "./ui/slider";
 import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Loader2, Music2, Play, Pause, RefreshCw } from 'lucide-react';
-
-const API_BASE_URL = 'http://localhost:8000';
+import { API_BASE_URL, buildAudioUrl } from '../config/api';
 
 const AdvancedStemsPlayer = ({ mp3Path, artist, songTitle }) => {
   const [processing, setProcessing] = useState(false);
@@ -17,7 +16,6 @@ const AdvancedStemsPlayer = ({ mp3Path, artist, songTitle }) => {
   const [isLoading, setIsLoading] = useState(true);
   const audioRefs = useRef({});
   
-  // Configuration state
   const [config, setConfig] = useState({
     stemConfig: "four_stems",
     model: "htdemucs",
@@ -41,7 +39,6 @@ const AdvancedStemsPlayer = ({ mp3Path, artist, songTitle }) => {
     { value: "cuda", label: "NVIDIA GPU (CUDA)" }
   ];
 
-  // Check for existing stems on load
   useEffect(() => {
     const checkExistingStems = async () => {
       if (!artist || !songTitle) {
@@ -50,43 +47,51 @@ const AdvancedStemsPlayer = ({ mp3Path, artist, songTitle }) => {
       }
 
       try {
-        // Check specific directories for stem files
         const stemTypes = {
           "four_stems": ["vocals", "drums", "bass", "other"],
           "six_stems": ["vocals", "drums", "bass", "guitar", "piano", "other"],
           "vocals_only": ["vocals", "no_vocals"]
         };
 
-        // Try to load stems based on current config
         const expectedStems = stemTypes[config.stemConfig];
         if (!expectedStems) {
           setIsLoading(false);
           return;
         }
 
-        // Check if all stems exist by trying to fetch one
-        const testPath = `/audio/${artist}/${songTitle}/${expectedStems[0]}.wav`;
-        const response = await fetch(`${API_BASE_URL}${testPath}`, { method: 'HEAD' });
-        
-        if (response.ok) {
-          // If one stem exists, construct paths for all stems
-          const stemPaths = {};
-          expectedStems.forEach(stem => {
-            stemPaths[stem] = `/audio/${artist}/${songTitle}/${stem}.wav`;
-          });
-          
+        // Check if directory exists and construct paths
+        const baseDir = `audio/${artist}/${songTitle}/stems`;
+        const stemPaths = {};
+        let foundAny = false;
+
+        // Try to verify each stem exists
+        for (const stem of expectedStems) {
+          const stemPath = `${baseDir}/${stem}.wav`;
+          try {
+            const response = await fetch(buildAudioUrl(stemPath), { 
+              method: 'HEAD',
+              timeout: 5000
+            });
+            
+            if (response.ok) {
+              stemPaths[stem] = stemPath; // Store full path
+              foundAny = true;
+            }
+          } catch (err) {
+            console.log(`Stem ${stem} not found:`, err);
+          }
+        }
+
+        if (foundAny) {
           setStems(stemPaths);
-          
-          // Initialize volume controls
           const initialVolumes = {};
-          expectedStems.forEach(stem => {
+          Object.keys(stemPaths).forEach(stem => {
             initialVolumes[stem] = 1;
           });
           setStemVolumes(initialVolumes);
         }
       } catch (err) {
-        console.log('No existing stems found:', err);
-        // Not treating this as an error, just means no stems exist yet
+        console.log('Error checking stems:', err);
       } finally {
         setIsLoading(false);
       }
@@ -101,36 +106,41 @@ const AdvancedStemsPlayer = ({ mp3Path, artist, songTitle }) => {
       return;
     }
 
-    if (Object.keys(stems).length > 0) {
-      const confirmed = window.confirm(
-        "This will remove existing stems and create new ones. Continue?"
-      );
-      if (!confirmed) return;
-    }
-
     setProcessing(true);
     setError(null);
-    
+
     try {
-      const response = await fetch(`${API_BASE_URL}/api/advanced-stems`, {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+      const response = await fetch(`${API_BASE_URL}/advanced-stems`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           artist,
           song_title: songTitle,
           ...config
-        })
+        }),
+        signal: controller.signal
       });
 
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `Server error: ${response.status}`);
+        const text = await response.text();
+        let errorMessage;
+        try {
+          const errorData = JSON.parse(text);
+          errorMessage = errorData.error;
+        } catch (e) {
+          errorMessage = `Server error: ${response.status}`;
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
-      if (data.error) throw new Error(data.error);
-
-      // Clean up existing audio elements
+      
+      // Clean up existing audio
       Object.values(audioRefs.current).forEach(audio => {
         if (audio) {
           audio.pause();
@@ -139,18 +149,27 @@ const AdvancedStemsPlayer = ({ mp3Path, artist, songTitle }) => {
       });
       audioRefs.current = {};
 
-      setStems(data.stems || {});
-      
-      // Initialize volume controls for new stems
-      const initialVolumes = {};
-      Object.keys(data.stems || {}).forEach(stem => {
-        initialVolumes[stem] = 1;
+      // Update stems with new paths
+      const newStems = {};
+      Object.entries(data.stems || {}).forEach(([stem, path]) => {
+        newStems[stem] = path;
       });
-      setStemVolumes(initialVolumes);
+      
+      setStems(newStems);
+      
+      // Reset volumes
+      const newVolumes = {};
+      Object.keys(newStems).forEach(stem => {
+        newVolumes[stem] = 1;
+      });
+      setStemVolumes(newVolumes);
 
     } catch (err) {
       console.error('Stem processing error:', err);
-      setError(err.message || 'Failed to process stems');
+      setError(err.message === 'AbortError' ? 
+        'Processing timed out - please try again' : 
+        err.message || 'Failed to process stems'
+      );
     } finally {
       setProcessing(false);
     }
@@ -180,7 +199,6 @@ const AdvancedStemsPlayer = ({ mp3Path, artist, songTitle }) => {
   };
 
   useEffect(() => {
-    // Clean up audio elements on unmount
     return () => {
       Object.values(audioRefs.current).forEach(audio => {
         if (audio) {
@@ -223,7 +241,6 @@ const AdvancedStemsPlayer = ({ mp3Path, artist, songTitle }) => {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Configuration Controls */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
             <label className="text-sm font-medium">Separation Type</label>
@@ -301,7 +318,6 @@ const AdvancedStemsPlayer = ({ mp3Path, artist, songTitle }) => {
           )}
         </Button>
 
-        {/* Stem Controls */}
         {Object.keys(stems).length > 0 && (
           <div className="space-y-4">
             <h3 className="font-medium">Stem Controls</h3>
@@ -324,9 +340,13 @@ const AdvancedStemsPlayer = ({ mp3Path, artist, songTitle }) => {
                   className="w-full"
                 />
                 <audio
-                  key={path}
+                  key={stem}
                   ref={el => audioRefs.current[stem] = el}
-                  src={`${API_BASE_URL}${path}`}
+                  src={path ? buildAudioUrl(path) : ''}
+                  onError={(e) => {
+                    console.error(`Error loading stem ${stem}:`, e);
+                    setError(`Failed to load ${stem} stem`);
+                  }}
                   onEnded={() => setIsPlaying(false)}
                 />
               </div>

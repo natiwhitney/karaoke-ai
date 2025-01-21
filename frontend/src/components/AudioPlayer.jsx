@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { buildAudioUrl } from '../config/api';
+
 
 const AudioPlayer = ({ vocalsPath, instrumentalPath }) => {
   const vocalsRef = useRef(null);
@@ -14,12 +16,14 @@ const AudioPlayer = ({ vocalsPath, instrumentalPath }) => {
     setIsPlaying(false);
     setCurrentTime(0);
     
-    // Set initial volumes
-    if (instrumentalRef.current) {
-      instrumentalRef.current.volume = 1;
-    }
+    // Set initial volumes and load audio
     if (vocalsRef.current) {
       vocalsRef.current.volume = vocalsVolume;
+      vocalsRef.current.src = vocalsPath || '';
+    }
+    if (instrumentalRef.current) {
+      instrumentalRef.current.volume = 1;
+      instrumentalRef.current.src = instrumentalPath || '';
     }
   }, [vocalsPath, instrumentalPath]);
 
@@ -99,14 +103,12 @@ const AudioPlayer = ({ vocalsPath, instrumentalPath }) => {
       {/* Hidden audio elements */}
       <audio
         ref={vocalsRef}
-        src={`http://localhost:8000${vocalsPath}`}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onEnded={() => setIsPlaying(false)}
       />
       <audio
         ref={instrumentalRef}
-        src={`http://localhost:8000${instrumentalPath}`}
         onEnded={() => setIsPlaying(false)}
       />
 

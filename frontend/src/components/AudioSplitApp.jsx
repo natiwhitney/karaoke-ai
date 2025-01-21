@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Loader2 } from 'lucide-react';
 import AudioPlayer from './AudioPlayer';
+import { API_BASE_URL } from '@/config/api';
 
 const AudioSplitApp = () => {
   const [youtubeUrl, setYoutubeUrl] = useState("");
@@ -33,7 +34,7 @@ const AudioSplitApp = () => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:8000/api/download-audio", {
+      const response = await fetch(`${API_BASE_URL}/download-audio`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ youtube_url: youtubeUrl }),
@@ -59,7 +60,7 @@ const AudioSplitApp = () => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:8000/api/split-audio", {
+      const response = await fetch(`${API_BASE_URL}/split-audio`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ youtube_url: youtubeUrl }),
@@ -133,7 +134,7 @@ const AudioSplitApp = () => {
               <audio 
                 controls 
                 className="w-full" 
-                src={`http://localhost:8000${downloadedMp3}`}
+                src={`${API_BASE_URL}${downloadedMp3}`}
               />
               <Button
                 onClick={handleSplit}

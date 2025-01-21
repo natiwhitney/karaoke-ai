@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader2, Music2 } from 'lucide-react';
+import { API_BASE_URL } from '@/config/api';
 
 const TransformForm = ({
   transformData,
@@ -35,7 +36,7 @@ const TransformForm = ({
   const fetchLyrics = async () => {
     try {
       setError(null);
-      const response = await fetch("http://localhost:8000/api/fetch-lyrics", {
+      const response = await fetch(`${API_BASE_URL}/fetch-lyrics`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

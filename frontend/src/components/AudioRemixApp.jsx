@@ -5,6 +5,8 @@ import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scrollArea";
 import { Loader2 } from 'lucide-react';
 import LyricsInput from './LyricsInput';
+import { API_BASE_URL, WS_BASE_URL } from '../config/api';
+
 
 const LyricsAnalysis = ({ lyrics, isAnalyzing, onAnalyze, onBack, onContinue, rhymeAnalysis, structureAnalysis }) => (
   <div className="space-y-6">
@@ -127,8 +129,7 @@ export default function AudioRemixApp() {
 
   const setupWebSocketConnection = async () => {
     const sessionId = crypto.randomUUID();
-    const ws = new WebSocket(`ws://localhost:8000/ws/${sessionId}`);
-    
+    const ws = new WebSocket(`${WS_BASE_URL}/${sessionId}`);    
     return new Promise((resolve, reject) => {
       ws.onopen = () => {
         setWebsocket(ws);
@@ -181,7 +182,7 @@ export default function AudioRemixApp() {
     setResults(prev => ({ ...prev, error: null }));
 
     try {
-      const response = await fetch('http://localhost:8000/api/fetch-lyrics', {
+      const response = await fetch(`${API_BASE_URL}/fetch-lyrics`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -206,7 +207,7 @@ export default function AudioRemixApp() {
     setIsAnalyzing(true);
     setResults(prev => ({ ...prev, error: null }));
     
-    const url = 'http://localhost:8000/api/analyze-lyrics';
+    const url = `${API_BASE_URL}/analyze-lyrics`;
     const data = {
       lyrics: manualLyrics || results.originalLyrics
     };
@@ -252,7 +253,7 @@ export default function AudioRemixApp() {
 
     try {
       const sessionId = await setupWebSocketConnection();
-      const url = 'http://localhost:8000/api/remix';
+      const url = `${API_BASE_URL}/remix`;
       const data = {
         lyrics: manualLyrics || results.originalLyrics,
         transform_style: transformData.transformStyle,
